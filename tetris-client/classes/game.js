@@ -104,13 +104,6 @@ const Game = (function createGameClass() {
       }
     }
 
-    detectPieceLeft(piece) {
-      let match = Cell.all().filter(function(cell){
-        return (cell.x == piece.coordinates.x-3 && cell.y == piece.coordinates.y)
-      }) 
-      return match.length > 0
-    }
-
     findMatchCell(x,y){
       let match = Cell.all().filter(function(cell){
         return (cell.x == x && cell.y == y)
@@ -118,11 +111,22 @@ const Game = (function createGameClass() {
       return match
     }
 
+    detectPieceLeft(piece) {
+      let updatedX = piece.coordinates.x-1
+      let classLeft = document.querySelector(`[data-x='${updatedX}'][data-y='${piece.coordinates.y}']`).className
+      return classBelow == 'cell live-cell'
+    }
+
+    detectPieceRight(piece) {
+      let updatedX = piece.coordinates.x+4
+      let classLeft = document.querySelector(`[data-x='${updatedX}'][data-y='${piece.coordinates.y}']`).className
+      return classBelow == 'cell live-cell'
+    }
+
     detectPieceBelow(piece) {
-      let below = this.board.grid[piece.coordinates.y][piece.coordinates.x]
-      // console.log(below)
-      console.log(this.board.grid);
-      return (below instanceof Piece);
+      let updatedY = piece.coordinates.y+2
+      let classBelow = document.querySelector(`[data-x='${piece.coordinates.x}'][data-y='${updatedY}']`).className
+      return classBelow == 'cell live-cell'                    
     }
     // rotateLeft(matrix) {
     //   let rotationMatrix = [[0,0,0],
