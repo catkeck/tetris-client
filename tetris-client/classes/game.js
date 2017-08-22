@@ -60,25 +60,44 @@ const Game = (function createGameClass() {
     }
 
     moveRight(piece, grid) {
-      piece.currentShape.forEach(shapeCoordinate => {
-        const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
-        cell.piece = null
-      })
-      piece.updatePosition({x:piece.coordinates.x+1,y:piece.coordinates.y})
-      this.insertBlock()
-      this.board.render()
+      if (this.allowMoveRight(piece)) {
+        piece.currentShape.forEach(shapeCoordinate => {
+          const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
+          cell.piece = null
+        })
+        piece.updatePosition({x:piece.coordinates.x+1,y:piece.coordinates.y})
+        this.insertBlock()
+        this.board.render()
+      }
     }
 
     moveLeft(piece, grid) {
-      piece.currentShape.forEach(shapeCoordinate => {
-        const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
-        cell.piece = null
-      })
-      piece.updatePosition({x:piece.coordinates.x-1,y:piece.coordinates.y})
-      this.insertBlock()
-      this.board.render()
+      if (this.allowMoveLeft(piece)) {
+        piece.currentShape.forEach(shapeCoordinate => {
+          const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
+          cell.piece = null
+        })
+        piece.updatePosition({x:piece.coordinates.x-1,y:piece.coordinates.y})
+        this.insertBlock()
+        this.board.render()
+      }
     }
 
+    allowMoveLeft(piece) {
+      if (piece.coordinates.x > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    allowMoveRight(piece){
+      if (piece.coordinates.x < this.board.width-3) {
+        return true;
+      } else {
+        return false;
+      }
+    }
     // rotateLeft(matrix) {
     //   let rotationMatrix = [[0,0,0],
     //                         [0,0,0],
