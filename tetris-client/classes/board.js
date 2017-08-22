@@ -18,7 +18,7 @@ const Board = (function createBoardClass() {
       }
 
       return grid;
-      console.log(grid)
+      
     }
 
     render() {
@@ -28,7 +28,7 @@ const Board = (function createBoardClass() {
 
         for (let m=0; m<this.width; m++) {
           let cellStatus = "";
-          if (this.grid[m][k].piece) {
+          if (this.grid[k][m].piece) {
 
             cellStatus = "live-cell"
           }
@@ -42,7 +42,7 @@ const Board = (function createBoardClass() {
         boardDisplay += "<div class='row'>"
         for (let j=0; j<this.width; j++){
           let cellStatus = ""
-          debugger
+          
           if (this.grid[i][j].piece) {
 
             cellStatus = "live-cell"
@@ -56,5 +56,3 @@ const Board = (function createBoardClass() {
   }
 
 })();
-
-      // const status = cell.piece ? 'live-cell' : 'dead-cell'

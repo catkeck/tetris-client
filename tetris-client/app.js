@@ -5,15 +5,19 @@ $(document).ready(function() {
   $('#play_button').on("click", function() {
     //play game
   })
-  // let status="playing";
-  // if(status === "playing"){
-  //   let piece = new Piece();
-  //   piece.shape.map()
-  //     status = "not-playing";
-  // }
-});
 
-function initializePiece() {
+  document.addEventListener("keydown", function (e) {
+    if (e.which == 39) {
+      game.moveRight(game.currentBlock, game.board.grid);
+      game.board.render();
+    } else if (e.which == 37) {
+      game.moveLeft(game.currentBlock, game.board.grid);
+      game.board.render();      
+    }
+    e.preventDefault();
+  })
 
-}
+})
+
+
 

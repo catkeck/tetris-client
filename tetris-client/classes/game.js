@@ -11,20 +11,24 @@ const Game = (function createGameClass() {
       this.currentBlock = new Piece(0);
       // this.nextBlock = new Piece(0);
       this.insertBlock();
-      setInterval(() => this.move(this.currentBlock, this.board.grid), 1000)
       
-      // console.log(this.currentBlock.currentShape);
-      //this.move(this.currentBlock, this.board.grid)
-      // console.log(this.rotateRight(this.currentBlock.currentShape));
+
+      let intervalId = setInterval(() => {
+        if (this.currentBlock.coordinates.y <= this.board.height) {
+          this.move(this.currentBlock, this.board.grid)
+        } else {
+          clearInterval(intervalId)
+        }
+      }, 500)
+      
     }
 
     insertBlock() {
       // this.next();
       this.currentBlock.currentShape.forEach(shapeCoordinate => {
-        const cell = new Cell(shapeCoordinate.x, shapeCoordinate.y, this.currentBlock)
-        console.log(cell)
+        const cell = new Cell(shapeCoordinate.y, shapeCoordinate.x, this.currentBlock)
        // debugger
-        this.board.grid[shapeCoordinate.x][shapeCoordinate.y] = cell
+        this.board.grid[shapeCoordinate.y][shapeCoordinate.x] = cell
         // targetCell = cell
         // var modifiedCell = this.board.grid[shapeCoordinate.x][shapeCoordinate.y]
         // console.log(modifiedCell === cell)
@@ -39,23 +43,40 @@ const Game = (function createGameClass() {
       //   }
       // }
       })
-      console.log("the board is")
-      console.log(this.board.grid)
+
     }
 
 
     //currentBlock is the entire Piece right now so current shape is just the underlying cells- so the array of hashes
     move(piece, grid){
-      console.log(piece)
       piece.currentShape.forEach(shapeCoordinate => {
-        const cell = grid[shapeCoordinate.x][shapeCoordinate.y]
-        console.log(cell)
+        const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
         cell.piece = null
       })
       piece.updatePosition({x:piece.coordinates.x,y:piece.coordinates.y+1})
       this.insertBlock()
       this.board.render()
       //setTimeout(() => this.move(piece, grid), 1000 )
+    }
+
+    moveRight(piece, grid) {
+      piece.currentShape.forEach(shapeCoordinate => {
+        const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
+        cell.piece = null
+      })
+      piece.updatePosition({x:piece.coordinates.x+1,y:piece.coordinates.y})
+      this.insertBlock()
+      this.board.render()
+    }
+
+    moveLeft(piece, grid) {
+      piece.currentShape.forEach(shapeCoordinate => {
+        const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
+        cell.piece = null
+      })
+      piece.updatePosition({x:piece.coordinates.x-1,y:piece.coordinates.y})
+      this.insertBlock()
+      this.board.render()
     }
 
     // rotateLeft(matrix) {
