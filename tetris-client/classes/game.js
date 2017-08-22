@@ -8,42 +8,27 @@ const Game = (function createGameClass() {
       this.board = new Board(13, 26);
       // this.currentBlock = new Piece(Math.floor(Math.random()*6));
       // this.nextBlock = new Piece(Math.floor(Math.random()*6));
-      this.currentBlock = new Piece(0);
-      // this.nextBlock = new Piece(0);
-      this.insertBlock();
-      
+      this.addBlock();
+    }
 
+    addBlock() {
+      this.currentBlock = new Piece(0);
+      this.insertBlock();
       let intervalId = setInterval(() => {
-        if (this.currentBlock.coordinates.y <= this.board.height) {
+        if (this.currentBlock.coordinates.y <= this.board.height && !this.detectPieceBelow(this.currentBlock)) {
           this.move(this.currentBlock, this.board.grid)
         } else {
           clearInterval(intervalId)
+          this.addBlock();
         }
       }, 500)
-      
     }
 
     insertBlock() {
-      // this.next();
       this.currentBlock.currentShape.forEach(shapeCoordinate => {
         const cell = new Cell(shapeCoordinate.y, shapeCoordinate.x, this.currentBlock)
-       // debugger
         this.board.grid[shapeCoordinate.y][shapeCoordinate.x] = cell
-        // targetCell = cell
-        // var modifiedCell = this.board.grid[shapeCoordinate.x][shapeCoordinate.y]
-        // console.log(modifiedCell === cell)
-
-      //   const cell = this.board.grid[shapeCoordinate.x][shapeCoordinate.y]
-      //   //not sure what the below does 
-      //   cell.state = {piece:,shapeId:shapeCoordinate.id}}
-      // )
-      // for (let i = 0; i < 3; i++){
-      //   for (let j = 0; j < 3; j++) {
-      //     this.board.grid[i][j]=this.currentBlock.currentShape[i][j];
-      //   }
-      // }
       })
-
     }
 
 
@@ -72,12 +57,24 @@ const Game = (function createGameClass() {
     }
 
     moveLeft(piece, grid) {
-      if (this.allowMoveLeft(piece)) {
+      if (this.allowMoveLeft(piece) || this.detectPieceLeft(piece)) {
         piece.currentShape.forEach(shapeCoordinate => {
           const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
           cell.piece = null
         })
         piece.updatePosition({x:piece.coordinates.x-1,y:piece.coordinates.y})
+        this.insertBlock()
+        this.board.render()
+      }
+    }
+
+    moveDown(piece, grid) {
+      if (this.allowMoveDown(piece)) {
+        piece.currentShape.forEach(shapeCoordinate => {
+          const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
+          cell.piece = null
+        })
+        piece.updatePosition({x:piece.coordinates.x,y:piece.coordinates.y+1})
         this.insertBlock()
         this.board.render()
       }
@@ -97,6 +94,35 @@ const Game = (function createGameClass() {
       } else {
         return false;
       }
+    }
+
+    allowMoveDown(piece){
+      if (piece.coordinates.y <= this.board.height) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    detectPieceLeft(piece) {
+      let match = Cell.all().filter(function(cell){
+        return (cell.x == piece.coordinates.x-3 && cell.y == piece.coordinates.y)
+      }) 
+      return match.length > 0
+    }
+
+    findMatchCell(x,y){
+      let match = Cell.all().filter(function(cell){
+        return (cell.x == x && cell.y == y)
+      }) 
+      return match
+    }
+
+    detectPieceBelow(piece) {
+      let below = this.board.grid[piece.coordinates.y][piece.coordinates.x]
+      // console.log(below)
+      console.log(this.board.grid);
+      return (below instanceof Piece);
     }
     // rotateLeft(matrix) {
     //   let rotationMatrix = [[0,0,0],

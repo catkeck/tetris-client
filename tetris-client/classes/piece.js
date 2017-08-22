@@ -3,7 +3,6 @@ const Piece = (function createPieceClass() {
   return class Piece {
 
     constructor(index, coordinates= {x:0,y:0}){
-      
       this.coordinates = coordinates;
       this.currentShape = this.shapes()[0]
       // The coordinates refer to the top left point on the piece

@@ -13,6 +13,9 @@ $(document).ready(function() {
     } else if (e.which == 37) {
       game.moveLeft(game.currentBlock, game.board.grid);
       game.board.render();      
+    } else if (e.which == 40) {
+      game.moveDown(game.currentBlock, game.board.grid);
+      game.board.render();
     }
     e.preventDefault();
   })
