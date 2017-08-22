@@ -47,3 +47,7 @@
 /*  float: left;*/
 /*  border-width: 1px;*/
 }
+
+.live-cell {
+  background: green; !important
+}

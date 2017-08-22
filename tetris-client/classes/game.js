@@ -11,15 +11,23 @@ const Game = (function createGameClass() {
       this.currentBlock = new Piece(0);
       // this.nextBlock = new Piece(0);
       this.insertBlock();
+      setInterval(() => this.move(this.currentBlock, this.board.grid), 1000)
+      
       // console.log(this.currentBlock.currentShape);
-      this.move(this.currentBlock, this.board.grid)
+      //this.move(this.currentBlock, this.board.grid)
       // console.log(this.rotateRight(this.currentBlock.currentShape));
     }
 
     insertBlock() {
       // this.next();
       this.currentBlock.currentShape.forEach(shapeCoordinate => {
-        const cell = new Cell(shapeCoordinate.x, shapeCoordinate.y, this.currentBlock.currentShape)
+        const cell = new Cell(shapeCoordinate.x, shapeCoordinate.y, this.currentBlock)
+        console.log(cell)
+       // debugger
+        this.board.grid[shapeCoordinate.x][shapeCoordinate.y] = cell
+        // targetCell = cell
+        // var modifiedCell = this.board.grid[shapeCoordinate.x][shapeCoordinate.y]
+        // console.log(modifiedCell === cell)
 
       //   const cell = this.board.grid[shapeCoordinate.x][shapeCoordinate.y]
       //   //not sure what the below does 
@@ -30,6 +38,9 @@ const Game = (function createGameClass() {
       //     this.board.grid[i][j]=this.currentBlock.currentShape[i][j];
       //   }
       // }
+      })
+      console.log("the board is")
+      console.log(this.board.grid)
     }
 
 
@@ -41,8 +52,10 @@ const Game = (function createGameClass() {
         console.log(cell)
         cell.piece = null
       })
-      piece.updatePosition({x:piece.coordinates.x+1,y:piece.coordinates.y})
-      console.log(piece)
+      piece.updatePosition({x:piece.coordinates.x,y:piece.coordinates.y+1})
+      this.insertBlock()
+      this.board.render()
+      //setTimeout(() => this.move(piece, grid), 1000 )
     }
 
     // rotateLeft(matrix) {

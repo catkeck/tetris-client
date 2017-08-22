@@ -3,7 +3,7 @@ const Piece = (function createPieceClass() {
   return class Piece {
 
     constructor(index, coordinates= {x:0,y:0}){
-      debugger
+      
       this.coordinates = coordinates;
       this.currentShape = this.shapes()[0]
       // The coordinates refer to the top left point on the piece
@@ -18,8 +18,8 @@ const Piece = (function createPieceClass() {
     shapes() {
       return [[
         {id:1, x:this.coordinates.x, y:this.coordinates.y},
-        {id:2, x:this.coordinates.x, y:this.coordinates.y+1},
-        {id:3, x:this.coordinates.x, y:this.coordinates.y+2},
+        {id:2, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:3, x:this.coordinates.x+2, y:this.coordinates.y},
         {id:4, x:this.coordinates.x+1, y:this.coordinates.y+1}]
       ]
     }
@@ -27,10 +27,10 @@ const Piece = (function createPieceClass() {
     updatePosition(coordinates) {
       this.coordinates = coordinates;
       this.currentShape = [
-       {id:1,x:coordinates.x,y:coordinates.y},
-       {id:2,x:coordinates.x,y:coordinates.y+1},
-       {id:3,x:coordinates.x,y:coordinates.y+2},
-       {id:4,x:coordinates.x+1,y:coordinates.y+1}
+        {id:1, x:this.coordinates.x, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:3, x:this.coordinates.x+2, y:this.coordinates.y},
+        {id:4, x:this.coordinates.x+1, y:this.coordinates.y+1}
      ]
     }
 

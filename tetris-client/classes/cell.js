@@ -5,7 +5,8 @@ const Cell = (function createCellClass() {
     constructor(x, y, piece=null){
       this.x = x;
       this.y = y;
-      this.state = {piece:piece, shapeId:null}
+      this.piece = piece;
+      //this.state = {piece:piece, shapeId:null}
     }
 
 

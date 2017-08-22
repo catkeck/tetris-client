@@ -13,25 +13,41 @@ const Board = (function createBoardClass() {
       for(let i=0; i < this.height+3; i++){
         grid.push([]);
         for (let j=0; j<this.width+3; j++){
-          grid[i].push({i,j});
+          grid[i].push({j,i});
         }
       }
+
       return grid;
+      console.log(grid)
     }
 
     render() {
       let boardDisplay = '';
       for(let k=0; k<3; k++){
         boardDisplay+="<div class='row-empty'>"
+
         for (let m=0; m<this.width; m++) {
-          boardDisplay+=`<div class='cell-empty' data-x=${k} data-y=${m}></div></div>`
+          let cellStatus = "";
+          if (this.grid[m][k].piece) {
+
+            cellStatus = "live-cell"
+          }
+          boardDisplay+=`<div class='cell-empty ${cellStatus}' data-x=${m} data-y=${k}></div></div>`
+        
         }
+
         boardDisplay+='</div>'
       }
       for(let i=3; i < this.height+3; i++){
         boardDisplay += "<div class='row'>"
         for (let j=0; j<this.width; j++){
-          boardDisplay += `<div class='cell' data-x=${i} data-y=${j}></div>`
+          let cellStatus = ""
+          debugger
+          if (this.grid[i][j].piece) {
+
+            cellStatus = "live-cell"
+          }
+          boardDisplay += `<div class='cell ${cellStatus}' data-x=${j} data-y=${i}></div>`
         }
         boardDisplay +="</div>"
       }
