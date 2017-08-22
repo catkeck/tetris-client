@@ -45,7 +45,7 @@ const Game = (function createGameClass() {
     }
 
     moveRight(piece, grid) {
-      if (this.allowMoveRight(piece)) {
+      if (this.allowMoveRight(piece) && !this.detectPieceRight(piece)) {
         piece.currentShape.forEach(shapeCoordinate => {
           const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
           cell.piece = null
@@ -57,7 +57,7 @@ const Game = (function createGameClass() {
     }
 
     moveLeft(piece, grid) {
-      if (this.allowMoveLeft(piece) || this.detectPieceLeft(piece)) {
+      if (this.allowMoveLeft(piece) && !this.detectPieceLeft(piece)) {
         piece.currentShape.forEach(shapeCoordinate => {
           const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
           cell.piece = null
@@ -69,7 +69,7 @@ const Game = (function createGameClass() {
     }
 
     moveDown(piece, grid) {
-      if (this.allowMoveDown(piece)) {
+      if (this.allowMoveDown(piece) && !this.detectPieceBelow(piece)) {
         piece.currentShape.forEach(shapeCoordinate => {
           const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
           cell.piece = null
@@ -114,13 +114,13 @@ const Game = (function createGameClass() {
     detectPieceLeft(piece) {
       let updatedX = piece.coordinates.x-1
       let classLeft = document.querySelector(`[data-x='${updatedX}'][data-y='${piece.coordinates.y}']`).className
-      return classBelow == 'cell live-cell'
+      return classLeft == 'cell live-cell'
     }
 
     detectPieceRight(piece) {
-      let updatedX = piece.coordinates.x+4
-      let classLeft = document.querySelector(`[data-x='${updatedX}'][data-y='${piece.coordinates.y}']`).className
-      return classBelow == 'cell live-cell'
+      let updatedX = piece.coordinates.x+3
+      let classRight = document.querySelector(`[data-x='${updatedX}'][data-y='${piece.coordinates.y}']`).className
+      return classRight == 'cell live-cell'
     }
 
     detectPieceBelow(piece) {
