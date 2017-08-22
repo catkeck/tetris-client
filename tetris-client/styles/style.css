@@ -1,5 +1,5 @@
 #board {
-  outline: 1px solid black;
+/*  outline: 1px solid black;*/
   height: auto;
   display: flex;
   flex-wrap: wrap;
@@ -21,10 +21,27 @@
 /*  float: left;*/
 }
 
+.row-empty {
+  height:20px;
+  outline: none;
+  display: flex;
+  max-width: 260px;  
+}
+
 .cell{
   width:20px;
   height:20px;
   outline: 1px solid black;
+/*  border-color: black;
+  border-style: solid;*/
+/*  float: left;*/
+/*  border-width: 1px;*/
+}
+
+.cell-empty{
+  width:20px;
+  height:20px;
+  outline: none;
 /*  border-color: black;
   border-style: solid;*/
 /*  float: left;*/

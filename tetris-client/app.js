@@ -1,15 +1,19 @@
 $(document).ready(function() {
-  let board = new Board(13,26);
-  board.render();
-  let status="playing";
-  if(status === "playing"){
-    let piece = new Piece();
-    piece.shape.forEach(function())
-    status = "not-playing";
-  }
+  let game = new Game("Caitlin");
+  game.board.render();
+  
+  $('#play_button').on("click", function() {
+    //play game
+  })
+  // let status="playing";
+  // if(status === "playing"){
+  //   let piece = new Piece();
+  //   piece.shape.map()
+  //     status = "not-playing";
+  // }
 });
 
 function initializePiece() {
-  
+
 }
 

@@ -2,13 +2,13 @@ const Cell = (function createCellClass() {
 
   return class Cell {
 
-    constructor(x, y, color){
+    constructor(x, y, piece=null){
       this.x = x;
       this.y = y;
-      this.color = color;
+      this.state = {piece:piece, shapeId:null}
     }
 
-    
+
 
 
 
