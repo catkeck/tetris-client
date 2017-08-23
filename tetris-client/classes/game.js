@@ -6,16 +6,17 @@ const Game = (function createGameClass() {
       this.name = name;
       this.score = 0;
       this.board = new Board(13, 26);
-      // this.currentBlock = new Piece(Math.floor(Math.random()*6));
+
       // this.nextBlock = new Piece(Math.floor(Math.random()*6));
       this.addBlock();
     }
 
     addBlock() {
-      this.currentBlock = new Piece(0);
+      this.currentBlock = new Piece(Math.floor(Math.random()*6));
       this.insertBlock();
       let intervalId = setInterval(() => {
         if (this.currentBlock.coordinates.y <= this.board.height && !this.detectPieceBelow(this.currentBlock)) {
+          console.log(this.currentBlock.coordinates.y)
           this.move(this.currentBlock, this.board.grid)
         } else {
           clearInterval(intervalId)
@@ -25,6 +26,7 @@ const Game = (function createGameClass() {
     }
 
     insertBlock() {
+      let board = this.board
       this.currentBlock.currentShape.forEach(shapeCoordinate => {
         const cell = new Cell(shapeCoordinate.y, shapeCoordinate.x, this.currentBlock)
         this.board.grid[shapeCoordinate.y][shapeCoordinate.x] = cell
@@ -38,7 +40,8 @@ const Game = (function createGameClass() {
         const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
         cell.piece = null
       })
-      piece.updatePosition({x:piece.coordinates.x,y:piece.coordinates.y+1})
+      console.log(piece)
+      piece.updatePosition(0,1)
       this.insertBlock()
       this.board.render()
       //setTimeout(() => this.move(piece, grid), 1000 )
@@ -50,7 +53,7 @@ const Game = (function createGameClass() {
           const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
           cell.piece = null
         })
-        piece.updatePosition({x:piece.coordinates.x+1,y:piece.coordinates.y})
+        piece.updatePosition(1,0)
         this.insertBlock()
         this.board.render()
       }
@@ -62,7 +65,7 @@ const Game = (function createGameClass() {
           const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
           cell.piece = null
         })
-        piece.updatePosition({x:piece.coordinates.x-1,y:piece.coordinates.y})
+        piece.updatePosition(-1,0)
         this.insertBlock()
         this.board.render()
       }
@@ -74,7 +77,7 @@ const Game = (function createGameClass() {
           const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
           cell.piece = null
         })
-        piece.updatePosition({x:piece.coordinates.x,y:piece.coordinates.y+1})
+        piece.updatePosition(0,1)
         this.insertBlock()
         this.board.render()
       }

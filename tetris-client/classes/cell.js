@@ -5,7 +5,6 @@ const Cell = (function createCellClass() {
   return class Cell {
 
     constructor(x, y, piece=null){
-      this.status = "active"
       this.x = x;
       this.y = y;
       this.piece = piece;
