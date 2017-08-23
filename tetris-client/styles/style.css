@@ -12,7 +12,7 @@
 .row {
 /*  width:286px;*/
   height:20px;
-  outline: 1px solid black;
+/*  outline: 1px solid black;*/
   display: flex;
   max-width: 260px;  
 /*  border-color: black;
@@ -28,15 +28,14 @@
   max-width: 260px;  
 }
 
-.cell{
-  width:20px;
-  height:20px;
-  outline: 1px solid black;
-/*  border-color: black;
-  border-style: solid;*/
-/*  float: left;*/
-/*  border-width: 1px;*/
-}
+.cell {
+    border: 1px solid #ddd;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin: 1px;
+    vertical-align: top;
+  }
 
 .cell-empty{
   width:20px;
