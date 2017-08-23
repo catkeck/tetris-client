@@ -18,6 +18,9 @@ const Game = (function createGameClass() {
         if (this.currentBlock.coordinates.y <= this.board.height && !this.detectPieceBelow(this.currentBlock)) {
           console.log(this.currentBlock.coordinates.y)
           this.move(this.currentBlock, this.board.grid)
+        } else if (this.currentBlock.coordinates.y <= 2) {
+          clearInterval(intervalId)
+          console.log("Game Over")
         } else {
           clearInterval(intervalId)
           this.addBlock();
