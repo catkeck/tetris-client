@@ -134,6 +134,8 @@ const Game = (function createGameClass() {
       let classBelow = document.querySelector(`[data-x='${piece.coordinates.x}'][data-y='${updatedY}']`).className
       return classBelow == 'cell live-cell'                    
     }
+
+
     // rotateLeft(matrix) {
     //   let rotationMatrix = [[0,0,0],
     //                         [0,0,0],

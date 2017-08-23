@@ -12,7 +12,7 @@ const Board = (function createBoardClass() {
       let grid = []
       for(let i=0; i < this.height+3; i++){
         grid.push([]);
-        for (let j=0; j<this.width+3; j++){
+        for (let j=0; j<this.width; j++){
           grid[i].push({j,i});
         }
       }
