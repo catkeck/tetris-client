@@ -71,8 +71,39 @@ const Piece = (function createPieceClass() {
         this.currentShape[i]["x"]+= horizontal
         this.currentShape[i]["y"]+= vertical
       }
-      this.coordinates = {x:this.currentShape[0]["x"],y:this.currentShape[0]["y"]}
+      let lowestNumberX = Number.POSITIVE_INFINITY;
+      let lowestNumberY = Number.POSITIVE_INFINITY;
+
+      for (let j = 0; j < 4; j++) {
+        if (this.currentShape[j]["x"] < lowestNumberX) {
+          lowestNumberX = this.currentShape[j]["x"]
+        }
+        if (this.currentShape[j]["y"] < lowestNumberY) {
+          lowestNumberY = this.currentShape[j]["y"]
+        }
+
+      }
+
+      this.coordinates = {x:lowestNumberX,y:lowestNumberY}
     }
 
   }
 })()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

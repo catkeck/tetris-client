@@ -34,6 +34,8 @@ const Game = (function createGameClass() {
       let board = this.board
       this.currentBlock.currentShape.forEach(shapeCoordinate => {
         const cell = new Cell(shapeCoordinate.y, shapeCoordinate.x, this.currentBlock)
+        //console.log(shapeCoordinate)
+        
         this.board.grid[shapeCoordinate.y][shapeCoordinate.x] = cell
       })
     }
@@ -87,6 +89,19 @@ const Game = (function createGameClass() {
       }
     }
 
+    fastFall(piece, grid) {
+      if (this.allowMoveDown(piece) && !this.detectPieceBelow(piece)) {
+        piece.currentShape.forEach(shapeCoordinate => {
+          const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
+          cell.piece = null
+        })
+        piece.updatePosition(0,this.detectPieceFurtherBelow(piece))
+        console.log(piece.coordinates)
+        this.insertBlock()
+        this.board.render()
+      }
+    }
+
     allowMoveLeft(piece) {
       if (piece.coordinates.x > 0) {
         return true;
@@ -134,6 +149,19 @@ const Game = (function createGameClass() {
       let updatedY = piece.coordinates.y+piece.height
       let classBelow = document.querySelector(`[data-x='${piece.coordinates.x}'][data-y='${updatedY}']`).className
       return classBelow == 'cell live-cell'                    
+    }
+
+    detectPieceFurtherBelow(piece) {
+      let y = piece.coordinates.y + piece.height + 1
+      console.log(y)
+      for (let i = y; i < this.board.height; i++) {
+        let classBelow = document.querySelector(`[data-x='${piece.coordinates.x}'][data-y='${i}']`).className
+        if (classBelow == 'cell live-cell') {
+          console.log(i)
+          return this.board.height - i + piece.height
+        } 
+      }
+      return this.board.height - y + piece.height
     }
 
     //this brings in clearing in rows
