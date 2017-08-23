@@ -3,6 +3,7 @@ $(document).ready(function() {
   $('#play-button').on("click", function() {
     let game = new Game("Caitlin");
     game.board.render();
+    $('#score').html(`<h1>Score: ${game.score}</h1>`)
 
     document.addEventListener("keydown", function (e) {
     if (e.which == 39) {

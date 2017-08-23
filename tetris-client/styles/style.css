@@ -1,25 +1,14 @@
 #board {
-/*  outline: 1px solid black;*/
   height: auto;
   display: flex;
   flex-wrap: wrap;
   max-width: 260px;
-
-/*  border-color: black;
-  border-style: solid;
-  border-width: 1px;*/
 }
 
 .row {
-/*  width:286px;*/
   height:20px;
-/*  outline: 1px solid black;*/
   display: flex;
   max-width: 260px;  
-/*  border-color: black;
-  border-style: solid;
-  border-width: 1px;*/
-/*  float: left;*/
 }
 
 .row-empty {
@@ -42,15 +31,7 @@
   width:20px;
   height:20px;
   outline: none;
-/*  border-color: black;
-  border-style: solid;*/
-/*  float: left;*/
-/*  border-width: 1px;*/
 }
-
-/*.live-cell {
-  background: green; !important
-}*/
 
 .cyan {
   background: #00ffff; !important
@@ -86,7 +67,7 @@
   border: 1px solid #ddd;
 }
 
-#game-over h1{
+#game-over h1, h2{
   position: relative;
   top: 50%;
   transform: translateY(-50%); 
