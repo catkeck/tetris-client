@@ -11,11 +11,7 @@ const Piece = (function createPieceClass() {
       this.width = this.getWidth(index)
       this.state = 1
 
-     }
-
-      // newShape(shape_index) {
-      //   this.currentShape = this.shapes[shape_index]
-      // }       
+     }    
 
     rotate(){
       if (this.state==1) {
@@ -172,20 +168,6 @@ const Piece = (function createPieceClass() {
       } else if (index==1){
         return 4;
       }
-      // let highestNumberY = Number.NEGATIVE_INFINITY;
-      // let lowestNumberY = Number.POSITIVE_INFINITY;
-      // for (let i = 0; i < 4; i++) {
-      //   if (shape[i]["y"]>highestNumberY) {
-      //     highestNumberY = shape[i]["y"]
-      //     debugger
-      //   }
-      //   if (shape[i]["y"]<lowestNumberY) {
-      //     lowestNumberY = shape[i]["y"]
-      //   }
-      // }
-      // console.log(highestNumberY)
-      // console.log(lowestNumberY)
-      // return highestNumberY-lowestNumberY;
     }
 
 
@@ -197,17 +179,6 @@ const Piece = (function createPieceClass() {
       } else if (index==5){
         return 2;
       }
-      // let highestNumberX = Number.NEGATIVE_INFINITY;
-      // let lowestNumberX = Number.POSITIVE_INFINITY;
-      // for (let i = 0; i < 4; i++) {
-      //   if (shape[i]["x"]>highestNumberX) {
-      //     highestNumberX = shape[i]["x"]
-      //   }
-      //   if (shape[i]["x"]<lowestNumberX) {
-      //     lowestNumberX = shape[i]["x"]
-      //   }
-      // }
-      // return highestNumberX-lowestNumberX;
     }
 
 

@@ -228,11 +228,7 @@ const Game = (function createGameClass() {
       
     }
 
-    detectPieceBelow(piece) {
-      // let updatedY = piece.coordinates.y+piece.height
-      // let classBelow = document.querySelector(`[data-x='${piece.coordinates.x}'][data-y='${updatedY}']`).className
-      // return classBelow.includes('cell live-cell');  
-      
+    detectPieceBelow(piece) { 
       let Y1 = piece.currentShape[0].y
       let Y2 = piece.currentShape[1].y
       let Y3 = piece.currentShape[2].y 
@@ -308,7 +304,6 @@ const Game = (function createGameClass() {
       $('#score').html(`<h1>Score: ${this.score}</h1>`)
     }
 
-    //this doesn't currently work but is supposed to display end game at the end
     endGame() {
       var board = document.getElementById("board")
       $('#board').html(`<div id='game-over'><h1>Game Over</h1><h2>Final Score: ${this.score}</h2></div>`)
