@@ -43,8 +43,7 @@ const Game = (function createGameClass() {
       piece.currentShape.forEach(shapeCoordinate => {
         const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
         cell.piece = null
-      })
-      console.log(piece)
+      }) 
       piece.updatePosition(0,1)
       this.insertBlock()
       this.board.render()
@@ -132,8 +131,6 @@ const Game = (function createGameClass() {
 
     detectPieceBelow(piece) {
       let updatedY = piece.coordinates.y+piece.height
-      console.log(piece.height)
-      console.log(piece.coordinates.y)
       let classBelow = document.querySelector(`[data-x='${piece.coordinates.x}'][data-y='${updatedY}']`).className
       return classBelow == 'cell live-cell'                    
     }
