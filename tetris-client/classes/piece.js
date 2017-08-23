@@ -28,7 +28,7 @@ const Piece = (function createPieceClass() {
         this.state = 4;
         this.currentShape = this.shapes4()[this.index]
       } else if (this.state==4) {
-        this.state = 1;n
+        this.state = 1;
         this.currentShape = this.shapes()[this.index]
       }
       this.height, this.width = this.width, this.height

@@ -12,7 +12,6 @@ const Game = (function createGameClass() {
     }
 
     addBlock() {
-
       this.currentBlock = new Piece(Math.floor(Math.random()*6));
       this.insertBlock();
       let intervalId = setInterval(() => {
@@ -166,21 +165,22 @@ const Game = (function createGameClass() {
 
     //this brings in clearing in rows
     checkFullRow(){
-      for(let i=0; i < this.board.grid.height+3; i++){
+      for(let i=0; i < this.board.height+3; i++){
         let fullSquares = 0
         for (let j=0; j<this.board.width; j++){
           if ((document.querySelector(`[data-x='${j}'][data-y='${i}']`).className).includes('cell live-cell')){
             fullSquares += 1
           }
         }
-        console.log(fullSquares);
         if (fullSquares==this.board.width){
+          debugger
           for(let k=i; k>0; k--){
-            this.board.grid[i]=this.board.grid[i+1]
+            this.board.grid[k]=this.board.grid[k-1]
           }
           this.board.render()
         }
       }
+      return 'hello'
     }
 
     next() {
@@ -191,8 +191,7 @@ const Game = (function createGameClass() {
     //this doesn't currently work but is supposed to display end game at the end
     endGame() {
       var board = document.getElementById("board")
-      board.style.zIndex='1';
-      board.style.backgroundColor = "#FFFFFF";
+      $('#board').html("<div id='game-over'><h1>Game Over</h1></div>")
     }
 
   }
