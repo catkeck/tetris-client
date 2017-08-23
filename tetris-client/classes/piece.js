@@ -14,21 +14,42 @@ const Piece = (function createPieceClass() {
      }    
 
     rotate(){
+      const temp = this.width
+      this.width = this.height
+      this.height = temp
       if (this.state==1) {
         this.state = 2;
+        this.clearCells();
         this.currentShape = this.shapes2()[this.index]
       } else if (this.state==2) {
         this.state = 3;
+        this.clearCells();
         this.currentShape = this.shapes3()[this.index]
       } else if (this.state==3) {
         this.state = 4;
+        this.clearCells();
         this.currentShape = this.shapes4()[this.index]
       } else if (this.state==4) {
         this.state = 1;
+        this.clearCells();
         this.currentShape = this.shapes()[this.index]
       }
-      this.height, this.width = this.width, this.height
     }
+
+    clearCells(){
+      this.currentShape.forEach(function (element){
+
+        let x = element.x
+        let y = element.y
+        let cell = document.querySelector(`[data-x='${x}'][data-y='${y}']`)
+        cell.removeAttribute("class")
+        cell.className = "cell"
+      })
+    }
+
+
+          // boardDisplay+=`<div class='cell-empty ${cellStatus} ${color}' data-x=${m} data-y=${k}></
+       
 
     shapes() {
       return [

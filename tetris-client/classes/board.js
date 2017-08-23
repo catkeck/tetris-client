@@ -22,7 +22,6 @@ const Board = (function createBoardClass() {
     }
 
     render() {
-      //This references the area above the grid
       let boardDisplay = '';
       for(let k=0; k<3; k++){
         boardDisplay+="<div class='row-empty'>"
@@ -34,12 +33,11 @@ const Board = (function createBoardClass() {
             color = this.setColor(k,m);
             cellStatus = "live-cell"
           }
-          boardDisplay+=`<div class='cell-empty ${cellStatus} ${color}' data-x=${m} data-y=${k}></div></div>`
+          boardDisplay+=`<div class='cell-empty ${cellStatus} ${color}' data-x=${m} data-y=${k}></div>`
         }
 
         boardDisplay+='</div>'
       }
-      //This references the area within the grid 
       for(let i=3; i < this.height+3; i++){
         boardDisplay += "<div class='row'>"
         for (let j=0; j<this.width; j++){

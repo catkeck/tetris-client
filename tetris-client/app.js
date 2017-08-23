@@ -19,8 +19,10 @@ $(document).ready(function() {
       game.fastFall(game.currentBlock, game.board.grid);
       game.board.render();      
     } else if (e.which == 38) {
+      game.removeBlock();
       game.currentBlock.rotate();
       game.insertBlock();
+      // debugger
       game.board.render();
     }
 

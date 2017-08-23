@@ -36,9 +36,13 @@ const Game = (function createGameClass() {
       }, 500)
     }
 
+    removeBlock() {
+      this.currentBlock.currentShape.forEach(shapeCoordinate => {
+        this.board.grid[shapeCoordinate.y][shapeCoordinate.x].piece = null
+      })
+    }
 
     insertBlock() {
-      let board = this.board
       this.currentBlock.currentShape.forEach(shapeCoordinate => {
         const cell = new Cell(shapeCoordinate.y, shapeCoordinate.x, this.currentBlock)
         //console.log(shapeCoordinate)
