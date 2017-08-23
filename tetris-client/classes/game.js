@@ -21,6 +21,7 @@ const Game = (function createGameClass() {
         } else if (this.currentBlock.coordinates.y <= 2) {
           clearInterval(intervalId);
           console.log("Game Over")
+          this.endGame();
         } else {
           clearInterval(intervalId);
           this.checkFullRow();
@@ -135,6 +136,7 @@ const Game = (function createGameClass() {
       return classBelow == 'cell live-cell'                    
     }
 
+    //this brings in clearing in rows
     checkFullRow(){
       for(let i=0; i < this.board.grid.height+3; i++){
         let fullSquares = 0
@@ -182,11 +184,19 @@ const Game = (function createGameClass() {
     //   rotationMatrix[2][2]=matrix[0][2];
     //   return rotationMatrix;
     // }
-
+    //this isn't called anywhere right now
     next() {
       this.currentBlock = this.nextBlock
       this.nextBlock = new Piece(Math.floor(Math.random()*6));
     }
+
+    //this doesn't currently work but is supposed to display end game at the end
+    endGame() {
+      var board = document.getElementById("board")
+      board.style.zIndex='1';
+      board.style.backgroundColor = "#FFFFFF";
+    }
+
   }
 
 })();
