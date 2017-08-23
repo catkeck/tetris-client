@@ -3,11 +3,13 @@ const Piece = (function createPieceClass() {
   return class Piece {
 
     constructor(index, coordinates= {x:0,y:0}){
+      this.index = index
       this.coordinates = coordinates;
       this.currentShape = this.shapes()[index]
-      // The coordinates refer to the top left point on the piece
-     this.height = this.getHeight(index)
-     this.width = this.getWidth(index)
+        // The coordinates refer to the top left point on the piece
+      this.height = this.getHeight(index)
+      this.width = this.getWidth(index)
+      this.state = 1
 
      }
 
@@ -15,9 +17,26 @@ const Piece = (function createPieceClass() {
       //   this.currentShape = this.shapes[shape_index]
       // }       
 
+    rotate(){
+      if (this.state==1) {
+        this.state = 2;
+        this.currentShape = this.shapes2()[this.index]
+      } else if (this.state==2) {
+        this.state = 3;
+        this.currentShape = this.shapes3()[this.index]
+      } else if (this.state==3) {
+        this.state = 4;
+        this.currentShape = this.shapes4()[this.index]
+      } else if (this.state==4) {
+        this.state = 1;n
+        this.currentShape = this.shapes()[this.index]
+      }
+      this.height, this.width = this.width, this.height
+    }
+
     shapes() {
-      return [[
-        {id:1, x:this.coordinates.x, y:this.coordinates.y},
+      return [
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y},
         {id:2, x:this.coordinates.x+1, y:this.coordinates.y},
         {id:3, x:this.coordinates.x+2, y:this.coordinates.y},
         {id:4, x:this.coordinates.x+1, y:this.coordinates.y+1}],
@@ -48,13 +67,127 @@ const Piece = (function createPieceClass() {
       ]
     }
 
+    shapes2(){
+      return [[
+        {id:1, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:2, x:this.coordinates.x+1, y:this.coordinates.y+1},
+        {id:3, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:4, x:this.coordinates.x+1, y:this.coordinates.y+2}],
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:3, x:this.coordinates.x+2, y:this.coordinates.y},
+        {id:4, x:this.coordinates.x+3, y:this.coordinates.y}],
+        [{id:1, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:3, x:this.coordinates.x+1, y:this.coordinates.y+1},
+        {id:4, x:this.coordinates.x, y:this.coordinates.y+2}],
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:2, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:3, x:this.coordinates.x+1, y:this.coordinates.y+1},
+        {id:4, x:this.coordinates.x+2, y:this.coordinates.y}],
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:3, x:this.coordinates.x, y:this.coordinates.y+2},
+        {id:4, x:this.coordinates.x+1, y:this.coordinates.y+2}],
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:3, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:4, x:this.coordinates.x+1, y:this.coordinates.y+1}],
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:3, x:this.coordinates.x+1, y:this.coordinates.y+1},
+        {id:4, x:this.coordinates.x+1, y:this.coordinates.y+2}]
+      ]
+    }
+
+    shapes3(){
+      return [[
+        {id:1, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:2, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:3, x:this.coordinates.x+1, y:this.coordinates.y+1},
+        {id:4, x:this.coordinates.x+2, y:this.coordinates.y+1}],
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:3, x:this.coordinates.x, y:this.coordinates.y+2},
+        {id:4, x:this.coordinates.x, y:this.coordinates.y+3}],
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:3, x:this.coordinates.x+1, y:this.coordinates.y+1},
+        {id:4, x:this.coordinates.x+2, y:this.coordinates.y+1}],
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:3, x:this.coordinates.x+1, y:this.coordinates.y+1},
+        {id:4, x:this.coordinates.x+2, y:this.coordinates.y+1}],
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:3, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:4, x:this.coordinates.x+2, y:this.coordinates.y}],
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:3, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:4, x:this.coordinates.x+1, y:this.coordinates.y+1}],
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:2, x:this.coordinates.x+1, y:this.coordinates.y+1},
+        {id:3, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:4, x:this.coordinates.x+2, y:this.coordinates.y}]
+      ]
+    }
+
+    shapes4(){
+      return [[
+        {id:1, x:this.coordinates.x, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:3, x:this.coordinates.x, y:this.coordinates.y+2},
+        {id:4, x:this.coordinates.x+1, y:this.coordinates.y+1}],
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:3, x:this.coordinates.x+2, y:this.coordinates.y},
+        {id:4, x:this.coordinates.x+3, y:this.coordinates.y}],
+        [{id:1, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:3, x:this.coordinates.x+1, y:this.coordinates.y+1},
+        {id:4, x:this.coordinates.x, y:this.coordinates.y+2}],
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:2, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:3, x:this.coordinates.x+1, y:this.coordinates.y+1},
+        {id:4, x:this.coordinates.x+2, y:this.coordinates.y}],
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:3, x:this.coordinates.x+1, y:this.coordinates.y+1},
+        {id:4, x:this.coordinates.x+1, y:this.coordinates.y+2}],
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x+1, y:this.coordinates.y},
+        {id:3, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:4, x:this.coordinates.x+1, y:this.coordinates.y+1}],
+        [{id:1, x:this.coordinates.x, y:this.coordinates.y},
+        {id:2, x:this.coordinates.x, y:this.coordinates.y+1},
+        {id:3, x:this.coordinates.x+1, y:this.coordinates.y+1},
+        {id:4, x:this.coordinates.x+1, y:this.coordinates.y+2}]
+      ]
+    }
+
     getHeight(index) {
       if (index==0||index==2||index==3||index==4||index==5||index==6){
         return 2;
       } else if (index==1){
         return 4;
       }
+      // let highestNumberY = Number.NEGATIVE_INFINITY;
+      // let lowestNumberY = Number.POSITIVE_INFINITY;
+      // for (let i = 0; i < 4; i++) {
+      //   if (shape[i]["y"]>highestNumberY) {
+      //     highestNumberY = shape[i]["y"]
+      //     debugger
+      //   }
+      //   if (shape[i]["y"]<lowestNumberY) {
+      //     lowestNumberY = shape[i]["y"]
+      //   }
+      // }
+      // console.log(highestNumberY)
+      // console.log(lowestNumberY)
+      // return highestNumberY-lowestNumberY;
     }
+
 
     getWidth(index){
       if (index==0||index==2||index==3||index==4||index==6) {
@@ -64,7 +197,20 @@ const Piece = (function createPieceClass() {
       } else if (index==5){
         return 2;
       }
+      // let highestNumberX = Number.NEGATIVE_INFINITY;
+      // let lowestNumberX = Number.POSITIVE_INFINITY;
+      // for (let i = 0; i < 4; i++) {
+      //   if (shape[i]["x"]>highestNumberX) {
+      //     highestNumberX = shape[i]["x"]
+      //   }
+      //   if (shape[i]["x"]<lowestNumberX) {
+      //     lowestNumberX = shape[i]["x"]
+      //   }
+      // }
+      // return highestNumberX-lowestNumberX;
     }
+
+
     updatePosition(horizontal,vertical) {
       // this.coordinates = coordinates;
       for (let i = 0; i<4; i++) {

@@ -12,6 +12,7 @@ const Game = (function createGameClass() {
     }
 
     addBlock() {
+
       this.currentBlock = new Piece(Math.floor(Math.random()*6));
       this.insertBlock();
       let intervalId = setInterval(() => {
@@ -26,9 +27,11 @@ const Game = (function createGameClass() {
           clearInterval(intervalId);
           this.checkFullRow();
           this.addBlock();
+
         }
       }, 500)
     }
+
 
     insertBlock() {
       let board = this.board
@@ -96,7 +99,6 @@ const Game = (function createGameClass() {
           cell.piece = null
         })
         piece.updatePosition(0,this.detectPieceFurtherBelow(piece))
-        console.log(piece.coordinates)
         this.insertBlock()
         this.board.render()
       }
@@ -136,28 +138,26 @@ const Game = (function createGameClass() {
     detectPieceLeft(piece) {
       let updatedX = piece.coordinates.x-1
       let classLeft = document.querySelector(`[data-x='${updatedX}'][data-y='${piece.coordinates.y}']`).className
-      return classLeft == 'cell live-cell'
+      return classLeft.includes('cell live-cell'); 
     }
 
     detectPieceRight(piece) {
       let updatedX = piece.coordinates.x+piece.width
       let classRight = document.querySelector(`[data-x='${updatedX}'][data-y='${piece.coordinates.y}']`).className
-      return classRight == 'cell live-cell'
+      return classRight.includes('cell live-cell'); 
     }
 
     detectPieceBelow(piece) {
       let updatedY = piece.coordinates.y+piece.height
       let classBelow = document.querySelector(`[data-x='${piece.coordinates.x}'][data-y='${updatedY}']`).className
-      return classBelow == 'cell live-cell'                    
+      return classBelow.includes('cell live-cell');                   
     }
 
     detectPieceFurtherBelow(piece) {
       let y = piece.coordinates.y + piece.height + 1
-      console.log(y)
       for (let i = y; i < this.board.height; i++) {
         let classBelow = document.querySelector(`[data-x='${piece.coordinates.x}'][data-y='${i}']`).className
-        if (classBelow == 'cell live-cell') {
-          console.log(i)
+        if (classBelow.includes('cell live-cell')) { 
           return this.board.height - i + piece.height
         } 
       }
@@ -169,10 +169,11 @@ const Game = (function createGameClass() {
       for(let i=0; i < this.board.grid.height+3; i++){
         let fullSquares = 0
         for (let j=0; j<this.board.width; j++){
-          if ((document.querySelector(`[data-x='${j}'][data-y='${i}']`).className)=='cell live-cell'){
+          if ((document.querySelector(`[data-x='${j}'][data-y='${i}']`).className).includes('cell live-cell')){
             fullSquares += 1
           }
         }
+        console.log(fullSquares);
         if (fullSquares==this.board.width){
           for(let k=i; k>0; k--){
             this.board.grid[i]=this.board.grid[i+1]
@@ -181,38 +182,7 @@ const Game = (function createGameClass() {
         }
       }
     }
-    // rotateLeft(matrix) {
-    //   let rotationMatrix = [[0,0,0],
-    //                         [0,0,0],
-    //                         [0,0,0]]
-    //   rotationMatrix[0][0]=matrix[0][2];
-    //   rotationMatrix[1][0]=matrix[0][1];
-    //   rotationMatrix[2][0]=matrix[0][0];
-    //   rotationMatrix[0][1]=matrix[1][2];
-    //   rotationMatrix[1][1]=matrix[1][1];
-    //   rotationMatrix[2][1]=matrix[1][0];
-    //   rotationMatrix[0][2]=matrix[2][2];
-    //   rotationMatrix[1][2]=matrix[2][1];
-    //   rotationMatrix[2][2]=matrix[2][0];
-    //   return rotationMatrix;
-    // }
 
-    // rotateRight(matrix) {
-    //   let rotationMatrix = [[0,0,0],
-    //                         [0,0,0],
-    //                         [0,0,0]]
-    //   rotationMatrix[0][0]=matrix[2][0];
-    //   rotationMatrix[1][0]=matrix[2][1];
-    //   rotationMatrix[2][0]=matrix[2][2];
-    //   rotationMatrix[0][1]=matrix[1][0];
-    //   rotationMatrix[1][1]=matrix[1][1];
-    //   rotationMatrix[2][1]=matrix[1][2];
-    //   rotationMatrix[0][2]=matrix[0][0];
-    //   rotationMatrix[1][2]=matrix[0][1];
-    //   rotationMatrix[2][2]=matrix[0][2];
-    //   return rotationMatrix;
-    // }
-    //this isn't called anywhere right now
     next() {
       this.currentBlock = this.nextBlock
       this.nextBlock = new Piece(Math.floor(Math.random()*6));

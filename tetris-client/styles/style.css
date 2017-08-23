@@ -47,6 +47,34 @@
 /*  border-width: 1px;*/
 }
 
-.live-cell {
+/*.live-cell {
   background: green; !important
+}*/
+
+.cyan {
+  background: #00ffff; !important
+}
+
+.blue {
+  background: #3366ff; !important
+}
+
+.orange {
+  background: #ff9933; !important
+}
+
+.yellow {
+  background: #ffff66; !important
+}
+
+.green {
+  background: #66ff33; !important
+}
+
+.purple {
+  background: #cc66ff; !important
+}
+
+.red {
+  background: #ff5050; !important
 }

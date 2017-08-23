@@ -6,6 +6,7 @@ $(document).ready(function() {
 
     document.addEventListener("keydown", function (e) {
     if (e.which == 39) {
+      debugger
       game.moveRight(game.currentBlock, game.board.grid);
       game.board.render();
     } else if (e.which == 37) {
@@ -17,6 +18,10 @@ $(document).ready(function() {
     } else if (e.which == 32) {
       game.fastFall(game.currentBlock, game.board.grid);
       game.board.render();      
+    } else if (e.which == 38) {
+      game.currentBlock.rotate();
+      game.insertBlock();
+      game.board.render();
     }
 
     e.preventDefault();
