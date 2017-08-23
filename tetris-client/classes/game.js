@@ -11,9 +11,14 @@ const Game = (function createGameClass() {
       this.addBlock();
     }
 
-
-    addBlock() {
-      this.currentBlock = new Piece(Math.floor(Math.random()*6));
+    addBlock(nextBlock = null) {
+      if(nextBlock == null) {
+        this.currentBlock = new Piece(Math.floor(Math.random()*6));  
+      }
+      else {
+        this.currentBlock = nextBlock
+      }
+      this.nextBlock = new Piece(Math.floor(Math.random()*6));
       this.insertBlock();
       let intervalId = setInterval(() => {
         if (this.currentBlock.coordinates.y-2+this.currentBlock.height <= this.board.height && !this.detectPieceBelow(this.currentBlock)) {
@@ -26,7 +31,7 @@ const Game = (function createGameClass() {
         } else {
           clearInterval(intervalId);
           this.clearFullRow();
-          this.addBlock();
+          this.addBlock(this.nextBlock);
         }
       }, 500)
     }
@@ -163,7 +168,7 @@ const Game = (function createGameClass() {
       return this.board.height - y + piece.height
     }
 
-    //this brings in clearing in rows
+    //this clears rows and updates the score accordingly
     clearFullRow(){
       for(let i=0; i < this.board.height+3; i++){
         let fullSquares = 0
@@ -173,7 +178,7 @@ const Game = (function createGameClass() {
           }
         }
         if (fullSquares==this.board.width){
-          for(let k=i; k>0; k--){
+          for(let k=i; k>=0; k--){
             this.board.grid[k]=this.board.grid[k-1]
           }
           this.score+=10;
@@ -181,11 +186,6 @@ const Game = (function createGameClass() {
         }
       }
       $('#score').html(`<h1>Score: ${this.score}</h1>`)
-    }
-
-    next() {
-      this.currentBlock = this.nextBlock
-      this.nextBlock = new Piece(Math.floor(Math.random()*6));
     }
 
     //this doesn't currently work but is supposed to display end game at the end
