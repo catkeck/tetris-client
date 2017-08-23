@@ -6,7 +6,8 @@ const Piece = (function createPieceClass() {
       this.coordinates = coordinates;
       this.currentShape = this.shapes()[index]
       // The coordinates refer to the top left point on the piece
-     
+     this.height = this.getHeight(index)
+     this.width = this.getWidth(index)
 
      }
 
@@ -47,6 +48,23 @@ const Piece = (function createPieceClass() {
       ]
     }
 
+    getHeight(index) {
+      if (index==0||index==2||index==3||index==4||index==5||index==6){
+        return 2;
+      } else if (index==1){
+        return 4;
+      }
+    }
+
+    getWidth(index){
+      if (index==0||index==2||index==3||index==4||index==6) {
+        return 3;
+      } else if (index==1){
+        return 1;
+      } else if (index==5){
+        return 2;
+      }
+    }
     updatePosition(horizontal,vertical) {
       // this.coordinates = coordinates;
       for (let i = 0; i<4; i++) {
@@ -55,30 +73,6 @@ const Piece = (function createPieceClass() {
       }
       this.coordinates = {x:this.currentShape[0]["x"],y:this.currentShape[0]["y"]}
     }
-
-
-
-      //   return [
-      //     [[0,1,0],
-      //      [0,1,0],
-      //      [0,1,0]],
-      //     [[1,1,1],
-      //      [0,0,1],
-      //      [0,0,0]],
-      //     [[1,1,0],
-      //      [1,1,0],
-      //      [0,0,0]],
-      //     [[1,1,0],
-      //      [0,1,1],
-      //      [0,0,0]],
-      //     [[0,1,1],
-      //      [1,1,0],
-      //      [0,0,0]],
-      //     [[1,1,1],
-      //      [0,1,0],
-      //      [0,0,0]]
-      //    ]
-      // }          
 
   }
 })()

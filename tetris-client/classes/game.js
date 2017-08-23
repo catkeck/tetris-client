@@ -92,7 +92,7 @@ const Game = (function createGameClass() {
     }
 
     allowMoveRight(piece){
-      if (piece.coordinates.x < this.board.width-3) {
+      if (piece.coordinates.x < this.board.width-piece.width) {
         return true;
       } else {
         return false;
@@ -100,7 +100,7 @@ const Game = (function createGameClass() {
     }
 
     allowMoveDown(piece){
-      if (piece.coordinates.y <= this.board.height) {
+      if (piece.coordinates.y+piece.height <= this.board.height) {
         return true;
       } else {
         return false;
@@ -121,13 +121,13 @@ const Game = (function createGameClass() {
     }
 
     detectPieceRight(piece) {
-      let updatedX = piece.coordinates.x+3
+      let updatedX = piece.coordinates.x+piece.width
       let classRight = document.querySelector(`[data-x='${updatedX}'][data-y='${piece.coordinates.y}']`).className
       return classRight == 'cell live-cell'
     }
 
     detectPieceBelow(piece) {
-      let updatedY = piece.coordinates.y+2
+      let updatedY = piece.coordinates.y+piece.height
       let classBelow = document.querySelector(`[data-x='${piece.coordinates.x}'][data-y='${updatedY}']`).className
       return classBelow == 'cell live-cell'                    
     }
