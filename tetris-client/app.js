@@ -1,12 +1,10 @@
 $(document).ready(function() {
-  let game = new Game("Caitlin");
-  game.board.render();
-  
-  $('#play_button').on("click", function() {
-    //play game
-  })
 
-  document.addEventListener("keydown", function (e) {
+  $('#play-button').on("click", function() {
+    let game = new Game("Caitlin");
+    game.board.render();
+
+    document.addEventListener("keydown", function (e) {
     if (e.which == 39) {
       game.moveRight(game.currentBlock, game.board.grid);
       game.board.render();
@@ -19,6 +17,9 @@ $(document).ready(function() {
     }
     e.preventDefault();
   })
+})
+
+  
 
 })
 
