@@ -140,21 +140,141 @@ const Game = (function createGameClass() {
     }
 
     detectPieceLeft(piece) {
-      let updatedX = piece.coordinates.x-1
-      let classLeft = document.querySelector(`[data-x='${updatedX}'][data-y='${piece.coordinates.y}']`).className
-      return classLeft.includes('cell live-cell'); 
+      let X1 = piece.currentShape[0].x 
+      let X2 = piece.currentShape[1].x
+      let X3 = piece.currentShape[2].x 
+      let X4 = piece.currentShape[3].x
+
+      let testX1 = piece.currentShape[0].x - 1
+      let testX2 = piece.currentShape[1].x - 1
+      let testX3 = piece.currentShape[2].x - 1
+      let testX4 = piece.currentShape[3].x - 1
+
+      let testY1 = piece.currentShape[0].y
+      let testY2 = piece.currentShape[1].y
+      let testY3 = piece.currentShape[2].y
+      let testY4 = piece.currentShape[3].y
+
+      let testArray = [[X1, testY1], [X2, testY2], [X3, testY3], [X4, testY4]]
+      let testArray2 = [[testX1, testY1], [testX2, testY2], [testX3, testY3], [testX4, testY4]]
+      
+      let resultArray = []
+
+      for (let i = 0; i < testArray2.length; i++) {
+        let toBeInserted = true
+        for (let j = 0; j < testArray.length; j++) {
+          let testArray2Val = JSON.stringify(testArray2[i])
+          let testArrayVal = JSON.stringify(testArray[j])
+          if (testArray2Val == testArrayVal) {
+            toBeInserted = false
+          } 
+        }
+        if (toBeInserted) {
+          resultArray.push(testArray2[i])
+        }
+      }
+
+      let aliveCellTest = []
+
+      for (let i = 0; i < resultArray.length; i++) {
+        aliveCellTest[i] = document.querySelector(`[data-x='${resultArray[i][0]}'][data-y='${resultArray[i][1]}']`).className.includes('cell live-cell')
+      }
+      
+      return aliveCellTest.includes(true)  
     }
 
     detectPieceRight(piece) {
-      let updatedX = piece.coordinates.x+piece.width
-      let classRight = document.querySelector(`[data-x='${updatedX}'][data-y='${piece.coordinates.y}']`).className
-      return classRight.includes('cell live-cell'); 
+      let X1 = piece.currentShape[0].x 
+      let X2 = piece.currentShape[1].x
+      let X3 = piece.currentShape[2].x 
+      let X4 = piece.currentShape[3].x
+
+      let testX1 = piece.currentShape[0].x + 1
+      let testX2 = piece.currentShape[1].x + 1
+      let testX3 = piece.currentShape[2].x + 1
+      let testX4 = piece.currentShape[3].x + 1
+
+      let testY1 = piece.currentShape[0].y
+      let testY2 = piece.currentShape[1].y
+      let testY3 = piece.currentShape[2].y
+      let testY4 = piece.currentShape[3].y
+
+      let testArray = [[X1, testY1], [X2, testY2], [X3, testY3], [X4, testY4]]
+      let testArray2 = [[testX1, testY1], [testX2, testY2], [testX3, testY3], [testX4, testY4]]
+      
+      let resultArray = []
+
+      for (let i = 0; i < testArray2.length; i++) {
+        let toBeInserted = true
+        for (let j = 0; j < testArray.length; j++) {
+          let testArray2Val = JSON.stringify(testArray2[i])
+          let testArrayVal = JSON.stringify(testArray[j])
+          if (testArray2Val == testArrayVal) {
+            toBeInserted = false
+          } 
+        }
+        if (toBeInserted) {
+          resultArray.push(testArray2[i])
+        }
+      }
+
+      let aliveCellTest = []
+
+      for (let i = 0; i < resultArray.length; i++) {
+        aliveCellTest[i] = document.querySelector(`[data-x='${resultArray[i][0]}'][data-y='${resultArray[i][1]}']`).className.includes('cell live-cell')
+      }
+      
+      return aliveCellTest.includes(true)       
+      
     }
 
     detectPieceBelow(piece) {
-      let updatedY = piece.coordinates.y+piece.height
-      let classBelow = document.querySelector(`[data-x='${piece.coordinates.x}'][data-y='${updatedY}']`).className
-      return classBelow.includes('cell live-cell');                   
+      // let updatedY = piece.coordinates.y+piece.height
+      // let classBelow = document.querySelector(`[data-x='${piece.coordinates.x}'][data-y='${updatedY}']`).className
+      // return classBelow.includes('cell live-cell');  
+      
+      let Y1 = piece.currentShape[0].y
+      let Y2 = piece.currentShape[1].y
+      let Y3 = piece.currentShape[2].y 
+      let Y4 = piece.currentShape[3].y
+
+      let testX1 = piece.currentShape[0].x
+      let testX2 = piece.currentShape[1].x
+      let testX3 = piece.currentShape[2].x
+      let testX4 = piece.currentShape[3].x
+
+      let testY1 = piece.currentShape[0].y + 1
+      let testY2 = piece.currentShape[1].y + 1
+      let testY3 = piece.currentShape[2].y + 1
+      let testY4 = piece.currentShape[3].y + 1
+
+      let testArray = [[testX1, Y1], [testX2, Y2], [testX3, Y3], [testX4, Y4]]
+      let testArray2 = [[testX1, testY1], [testX2, testY2], [testX3, testY3], [testX4, testY4]]
+      
+      let resultArray = []
+
+      for (let i = 0; i < testArray2.length; i++) {
+        let toBeInserted = true
+        for (let j = 0; j < testArray.length; j++) {
+          let testArray2Val = JSON.stringify(testArray2[i])
+          let testArrayVal = JSON.stringify(testArray[j])
+          if (testArray2Val == testArrayVal) {
+            toBeInserted = false
+          } 
+        }
+        if (toBeInserted) {
+          resultArray.push(testArray2[i])
+        }
+      }
+
+      let aliveCellTest = []
+
+      for (let i = 0; i < resultArray.length; i++) {
+        aliveCellTest[i] = document.querySelector(`[data-x='${resultArray[i][0]}'][data-y='${resultArray[i][1]}']`).className.includes('cell live-cell')
+      }
+      
+      return aliveCellTest.includes(true)       
+
     }
 
     detectPieceFurtherBelow(piece) {
@@ -178,7 +298,7 @@ const Game = (function createGameClass() {
           }
         }
         if (fullSquares==this.board.width){
-          for(let k=i; k>=0; k--){
+          for(let k=i; k>0; k--){
             this.board.grid[k]=this.board.grid[k-1]
           }
           this.score+=10;
