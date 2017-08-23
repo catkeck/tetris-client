@@ -15,14 +15,15 @@ const Game = (function createGameClass() {
       this.currentBlock = new Piece(Math.floor(Math.random()*6));
       this.insertBlock();
       let intervalId = setInterval(() => {
-        if (this.currentBlock.coordinates.y <= this.board.height && !this.detectPieceBelow(this.currentBlock)) {
-          console.log(this.currentBlock.coordinates.y)
-          this.move(this.currentBlock, this.board.grid)
+        if (this.currentBlock.coordinates.y-2+this.currentBlock.height <= this.board.height && !this.detectPieceBelow(this.currentBlock)) {
+          this.move(this.currentBlock, this.board.grid);
+          this.checkFullRow();
         } else if (this.currentBlock.coordinates.y <= 2) {
-          clearInterval(intervalId)
+          clearInterval(intervalId);
           console.log("Game Over")
         } else {
-          clearInterval(intervalId)
+          clearInterval(intervalId);
+          this.checkFullRow();
           this.addBlock();
         }
       }, 500)
@@ -131,11 +132,28 @@ const Game = (function createGameClass() {
 
     detectPieceBelow(piece) {
       let updatedY = piece.coordinates.y+piece.height
+      console.log(piece.height)
+      console.log(piece.coordinates.y)
       let classBelow = document.querySelector(`[data-x='${piece.coordinates.x}'][data-y='${updatedY}']`).className
       return classBelow == 'cell live-cell'                    
     }
 
-
+    checkFullRow(){
+      for(let i=0; i < this.board.grid.height+3; i++){
+        let fullSquares = 0
+        for (let j=0; j<this.board.width; j++){
+          if ((document.querySelector(`[data-x='${j}'][data-y='${i}']`).className)=='cell live-cell'){
+            fullSquares += 1
+          }
+        }
+        if (fullSquares==this.board.width){
+          for(let k=i; k>0; k--){
+            this.board.grid[i]=this.board.grid[i+1]
+          }
+          this.board.render()
+        }
+      }
+    }
     // rotateLeft(matrix) {
     //   let rotationMatrix = [[0,0,0],
     //                         [0,0,0],
