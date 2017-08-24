@@ -2,10 +2,11 @@ const Board = (function createBoardClass() {
 
   return class Board {
 
-    constructor(width, height){
+    constructor(width, height, game){
       this.width = width;
       this.height = height;
       this.grid = this.createGrid();
+      this.game = game;
     }
 
     createGrid(){
@@ -73,13 +74,21 @@ const Board = (function createBoardClass() {
       }
       return color;
     }
+
+    addRow() {
+      let newRow = []
+      for (let i = 0; i<this.width; i++) {
+        newRow.push([])
+      }
+      this.grid[0]=newRow
+    }
   
 
 
   addNewPieces(grid) {
    let initialX = 0;
    for(let i = 0; i < 6; i++) {
-     let piece = new Piece(5);
+     let piece = new Piece(5, this, this.game);
      piece.coordinates.x = initialX;
      piece.coordinates.y = 27
      grid[piece.coordinates.y][piece.coordinates.x].piece=piece;
@@ -90,7 +99,7 @@ const Board = (function createBoardClass() {
    }
    let initialX2 = 0;
    for(let i = 0; i < 6; i++) {
-     let piece = new Piece(5);
+     let piece = new Piece(5, this, this.game);
      piece.coordinates.x = initialX2;
      piece.coordinates.y = 25
      grid[piece.coordinates.y][piece.coordinates.x].piece=piece;

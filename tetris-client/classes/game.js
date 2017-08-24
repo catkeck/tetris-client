@@ -5,7 +5,7 @@ const Game = (function createGameClass() {
     constructor(name){
       this.name = name;
       this.score = 0;
-      this.board = new Board(13, 26);
+      this.board = new Board(13, 26, this);
 
       // this.nextBlock = new Piece(Math.floor(Math.random()*6));
       this.addBlock();
@@ -13,17 +13,17 @@ const Game = (function createGameClass() {
 
     addBlock(nextBlock = null) {
       if(nextBlock == null) {
-        this.currentBlock = new Piece(Math.floor(Math.random()*6));  
+        this.currentBlock = new Piece(Math.floor(Math.random()*6), this.board, this);  
       }
       else {
         this.currentBlock = nextBlock
       }
-      this.nextBlock = new Piece(Math.floor(Math.random()*6));
+      this.nextBlock = new Piece(Math.floor(Math.random()*6), this.board, this);
       this.insertBlock();
       let intervalId = setInterval(() => {
        
-        if (this.currentBlock.coordinates.y-2+this.currentBlock.height <= this.board.height && !this.detectPieceBelow(this.currentBlock)) {
-          this.move(this.currentBlock, this.board.grid);
+        if (this.currentBlock.coordinates.y-2+this.currentBlock.height <= this.board.height && !this.currentBlock.detectPieceBelow()) {
+          this.currentBlock.move(this.currentBlock, this.board.grid);
           this.clearFullRow(this.currentBlock);
         } else if (this.currentBlock.coordinates.y <= 2) {
           clearInterval(intervalId);
@@ -54,19 +54,10 @@ const Game = (function createGameClass() {
 
 
     //currentBlock is the entire Piece right now so current shape is just the underlying cells- so the array of hashes
-    move(piece, grid){
-      piece.currentShape.forEach(shapeCoordinate => {
-        const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
-        cell.piece = null
-      }) 
-      piece.updatePosition(0,1)
-      this.insertBlock()
-      this.board.render()
-      //setTimeout(() => this.move(piece, grid), 1000 )
-    }
+
 
     moveRight(piece, grid) {
-      if (this.allowMoveRight(piece) && !this.detectPieceRight(piece)) {
+      if (this.allowMoveRight(piece) && !piece.detectPieceRight()) {
         piece.currentShape.forEach(shapeCoordinate => {
           const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
           cell.piece = null
@@ -78,7 +69,7 @@ const Game = (function createGameClass() {
     }
 
     moveLeft(piece, grid) {
-      if (this.allowMoveLeft(piece) && !this.detectPieceLeft(piece)) {
+      if (this.allowMoveLeft(piece) && !piece.detectPieceLeft()) {
         piece.currentShape.forEach(shapeCoordinate => {
           const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
           cell.piece = null
@@ -90,7 +81,7 @@ const Game = (function createGameClass() {
     }
 
     moveDown(piece, grid) {
-      if (this.allowMoveDown(piece) && !this.detectPieceBelow(piece)) {
+      if (this.allowMoveDown(piece) && !piece.detectPieceBelow()) {
         piece.currentShape.forEach(shapeCoordinate => {
           const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
           cell.piece = null
@@ -102,7 +93,7 @@ const Game = (function createGameClass() {
     }
 
     fastFall(piece, grid) {
-      if (this.allowMoveDown(piece) && !this.detectPieceBelow(piece)) {
+      if (this.allowMoveDown(piece) && !piece.detectPieceBelow()) {
         piece.currentShape.forEach(shapeCoordinate => {
           const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
           cell.piece = null
@@ -144,139 +135,6 @@ const Game = (function createGameClass() {
       return match
     }
 
-    detectPieceLeft(piece) {
-      let X1 = piece.currentShape[0].x 
-      let X2 = piece.currentShape[1].x
-      let X3 = piece.currentShape[2].x 
-      let X4 = piece.currentShape[3].x
-
-      let testX1 = piece.currentShape[0].x - 1
-      let testX2 = piece.currentShape[1].x - 1
-      let testX3 = piece.currentShape[2].x - 1
-      let testX4 = piece.currentShape[3].x - 1
-
-      let testY1 = piece.currentShape[0].y
-      let testY2 = piece.currentShape[1].y
-      let testY3 = piece.currentShape[2].y
-      let testY4 = piece.currentShape[3].y
-
-      let testArray = [[X1, testY1], [X2, testY2], [X3, testY3], [X4, testY4]]
-      let testArray2 = [[testX1, testY1], [testX2, testY2], [testX3, testY3], [testX4, testY4]]
-      
-      let resultArray = []
-
-      for (let i = 0; i < testArray2.length; i++) {
-        let toBeInserted = true
-        for (let j = 0; j < testArray.length; j++) {
-          let testArray2Val = JSON.stringify(testArray2[i])
-          let testArrayVal = JSON.stringify(testArray[j])
-          if (testArray2Val == testArrayVal) {
-            toBeInserted = false
-          } 
-        }
-        if (toBeInserted) {
-          resultArray.push(testArray2[i])
-        }
-      }
-
-      let aliveCellTest = []
-
-      for (let i = 0; i < resultArray.length; i++) {
-        aliveCellTest[i] = document.querySelector(`[data-x='${resultArray[i][0]}'][data-y='${resultArray[i][1]}']`).className.includes('cell live-cell')
-      }
-      
-      return aliveCellTest.includes(true)  
-    }
-
-    detectPieceRight(piece) {
-      let X1 = piece.currentShape[0].x 
-      let X2 = piece.currentShape[1].x
-      let X3 = piece.currentShape[2].x 
-      let X4 = piece.currentShape[3].x
-
-      let testX1 = piece.currentShape[0].x + 1
-      let testX2 = piece.currentShape[1].x + 1
-      let testX3 = piece.currentShape[2].x + 1
-      let testX4 = piece.currentShape[3].x + 1
-
-      let testY1 = piece.currentShape[0].y
-      let testY2 = piece.currentShape[1].y
-      let testY3 = piece.currentShape[2].y
-      let testY4 = piece.currentShape[3].y
-
-      let testArray = [[X1, testY1], [X2, testY2], [X3, testY3], [X4, testY4]]
-      let testArray2 = [[testX1, testY1], [testX2, testY2], [testX3, testY3], [testX4, testY4]]
-      
-      let resultArray = []
-
-      for (let i = 0; i < testArray2.length; i++) {
-        let toBeInserted = true
-        for (let j = 0; j < testArray.length; j++) {
-          let testArray2Val = JSON.stringify(testArray2[i])
-          let testArrayVal = JSON.stringify(testArray[j])
-          if (testArray2Val == testArrayVal) {
-            toBeInserted = false
-          } 
-        }
-        if (toBeInserted) {
-          resultArray.push(testArray2[i])
-        }
-      }
-
-      let aliveCellTest = []
-
-      for (let i = 0; i < resultArray.length; i++) {
-        aliveCellTest[i] = document.querySelector(`[data-x='${resultArray[i][0]}'][data-y='${resultArray[i][1]}']`).className.includes('cell live-cell')
-      }
-      
-      return aliveCellTest.includes(true)       
-      
-    }
-
-    detectPieceBelow(piece) { 
-      let Y1 = piece.currentShape[0].y
-      let Y2 = piece.currentShape[1].y
-      let Y3 = piece.currentShape[2].y 
-      let Y4 = piece.currentShape[3].y
-
-      let testX1 = piece.currentShape[0].x
-      let testX2 = piece.currentShape[1].x
-      let testX3 = piece.currentShape[2].x
-      let testX4 = piece.currentShape[3].x
-
-      let testY1 = piece.currentShape[0].y + 1
-      let testY2 = piece.currentShape[1].y + 1
-      let testY3 = piece.currentShape[2].y + 1
-      let testY4 = piece.currentShape[3].y + 1
-
-      let testArray = [[testX1, Y1], [testX2, Y2], [testX3, Y3], [testX4, Y4]]
-      let testArray2 = [[testX1, testY1], [testX2, testY2], [testX3, testY3], [testX4, testY4]]
-      
-      let resultArray = []
-
-      for (let i = 0; i < testArray2.length; i++) {
-        let toBeInserted = true
-        for (let j = 0; j < testArray.length; j++) {
-          let testArray2Val = JSON.stringify(testArray2[i])
-          let testArrayVal = JSON.stringify(testArray[j])
-          if (testArray2Val == testArrayVal) {
-            toBeInserted = false
-          } 
-        }
-        if (toBeInserted) {
-          resultArray.push(testArray2[i])
-        }
-      }
-
-      let aliveCellTest = []
-
-      for (let i = 0; i < resultArray.length; i++) {
-        aliveCellTest[i] = document.querySelector(`[data-x='${resultArray[i][0]}'][data-y='${resultArray[i][1]}']`).className.includes('cell live-cell')
-      }
-      
-      return aliveCellTest.includes(true)       
-
-    }
 
     detectPieceFurtherBelow(piece) {
       let y = piece.coordinates.y + piece.height + 1
@@ -298,10 +156,10 @@ const Game = (function createGameClass() {
             fullSquares += 1
           }
         }
-        if (fullSquares==this.board.width && (!this.allowMoveDown(piece) || this.detectPieceBelow(piece))){
+        if (fullSquares==this.board.width && (!this.allowMoveDown(piece) || piece.detectPieceBelow())){
           for(let k=i; k>0; k--){
             this.board.grid[k]=this.board.grid[k-1]
-            this.addRow();
+            this.board.addRow();
           }
           this.score+=10;
           this.board.render()
@@ -310,13 +168,7 @@ const Game = (function createGameClass() {
       $('#score').html(`<h1>Score: ${this.score}</h1>`)
     }
 
-    addRow() {
-      let newRow = []
-      for (let i = 0; i<this.board.width; i++) {
-        newRow.push([])
-      }
-      this.board.grid[0]=newRow
-    }
+
     endGame() {
       var board = document.getElementById("board")
       $('#board').html(`<div id='game-over'><h1>Game Over</h1><h2>Final Score: ${this.score}</h2></div>`)
