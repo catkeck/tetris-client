@@ -3,27 +3,44 @@
   <head>
     <title>Tetros</title>
     <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
   </head>
   <body>
-
-    <div id='welcome'>
-      <h4>Welcome to Flatiron Tetris</h4>
-      <form id='welcome-form'>
-        <label>What is your name?</label>
-        <input type="text">
-        <input type="submit" id="name">
-      </form>
+    <div class='container-fluid'>
+      <div class="jumbotron">
+        <h1>Tetris</h1>
+        <button class="btn btn-primary play-button">Press to Begin</button>
+      </div>
     </div>
 
+    <div id='welcome' class="container">
+        <form id='welcome-form'>
+          <div class="form-group">
+          <label>Enter Your Name:</label>
+          <input type="text" class="form-control" placeholder="Name">
+          </div>
+          <input type="submit" id="name" class="btn btn-primary">
+        </form>
+    </div>
+
+    <div class="container">
     <div id="board">
     </div>
-    <input type="button" id="play-button" value = "Play">
+
+    
+    
     <div id="score">
+      <div id="score">
+      </div>
     </div>
 
-    <div id='past-scores'>
-
+    <div id="past-scores-container">
+      <div id="past-scores">
+      </div>
     </div>
+    </div>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src='./classes/board.js'></script>
     <script src="./classes/cell.js"></script>
@@ -31,7 +48,7 @@
     <script src='./classes/game.js'></script>
     <script src='./app.js'></script>
     <script src='./src/tetrisAdapter.js'></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
-
   </body>
 </html>
