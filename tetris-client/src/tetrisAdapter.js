@@ -24,7 +24,7 @@ class TetrisAdapter {
       headers: {
         'Content-Type':'application/json'
       },
-      body: JSON.stringify({stats})
+      body: JSON.stringify(stats)
     }
     return fetch(this.baseUrl, gameCreateParams).then(resp => resp.json())
   }

@@ -320,8 +320,8 @@ const Game = (function createGameClass() {
     endGame() {
       var board = document.getElementById("board")
       $('#board').html(`<div id='game-over'><h1>Game Over</h1><h2>Final Score: ${this.score}</h2></div>`)
-      // let dataFetcher = new TetrisAdapter;
-      // console.log(dataFetcher.createGame({name: this.name, score: this.score}))
+      let dataFetcher = new TetrisAdapter;
+      dataFetcher.createGame({name: this.name, score: this.score})
     }
 
   }

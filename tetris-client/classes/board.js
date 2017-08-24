@@ -16,7 +16,7 @@ const Board = (function createBoardClass() {
           grid[i].push({j,i});
         }
       }
-      this.addNewPieces(grid)
+      //this.addNewPieces(grid)
       return grid;
       
     }
