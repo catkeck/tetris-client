@@ -20,8 +20,9 @@ const Game = (function createGameClass() {
       }
       this.nextBlock = new Piece(Math.floor(Math.random()*6), this.board, this);
       this.insertBlock();
+      let intervalTime = 500
       let intervalId = setInterval(() => {
-       
+        if (intervalTime > 50) {intervalTime -= 2;}
         if (this.currentBlock.coordinates.y-2+this.currentBlock.height <= this.board.height && !this.currentBlock.detectPieceBelow()) {
           this.currentBlock.move(this.currentBlock, this.board.grid);
           this.clearFullRow(this.currentBlock);
@@ -34,7 +35,7 @@ const Game = (function createGameClass() {
           this.clearFullRow(this.currentBlock);
           this.addBlock(this.nextBlock);
         }
-      }, 500)
+      }, intervalTime)
     }
 
     removeBlock() {
