@@ -21,16 +21,17 @@ const Game = (function createGameClass() {
       this.nextBlock = new Piece(Math.floor(Math.random()*6));
       this.insertBlock();
       let intervalId = setInterval(() => {
+        // this.clearFullRow();
         if (this.currentBlock.coordinates.y-2+this.currentBlock.height <= this.board.height && !this.detectPieceBelow(this.currentBlock)) {
           this.move(this.currentBlock, this.board.grid);
-          this.clearFullRow();
+          // this.clearFullRow();
         } else if (this.currentBlock.coordinates.y <= 2) {
           clearInterval(intervalId);
           console.log("Game Over")
           this.endGame();
         } else {
           clearInterval(intervalId);
-          this.clearFullRow();
+          // this.clearFullRow();
           this.addBlock(this.nextBlock);
         }
       }, 500)
@@ -97,6 +98,8 @@ const Game = (function createGameClass() {
         piece.updatePosition(0,1)
         this.insertBlock()
         this.board.render()
+      } else {
+        this.clearFullRow();
       }
     }
 
@@ -300,6 +303,7 @@ const Game = (function createGameClass() {
         if (fullSquares==this.board.width){
           for(let k=i; k>0; k--){
             this.board.grid[k]=this.board.grid[k-1]
+            this.addRow();
           }
           this.score+=10;
           this.board.render()
@@ -308,6 +312,13 @@ const Game = (function createGameClass() {
       $('#score').html(`<h1>Score: ${this.score}</h1>`)
     }
 
+    addRow() {
+      let newRow = []
+      for (let i = 0; i<this.board.width; i++) {
+        newRow.push([])
+      }
+      this.board.grid[0]=newRow
+    }
     endGame() {
       var board = document.getElementById("board")
       $('#board').html(`<div id='game-over'><h1>Game Over</h1><h2>Final Score: ${this.score}</h2></div>`)
