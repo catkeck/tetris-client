@@ -16,7 +16,7 @@ const Board = (function createBoardClass() {
           grid[i].push({j,i});
         }
       }
-
+      this.addNewPieces(grid)
       return grid;
       
     }
@@ -73,7 +73,34 @@ const Board = (function createBoardClass() {
       }
       return color;
     }
-  }
+  
+
+
+  addNewPieces(grid) {
+   let initialX = 0;
+   for(let i = 0; i < 6; i++) {
+     let piece = new Piece(5);
+     piece.coordinates.x = initialX;
+     piece.coordinates.y = 27
+     grid[piece.coordinates.y][piece.coordinates.x].piece=piece;
+     grid[piece.coordinates.y][piece.coordinates.x+1].piece=piece
+     grid[piece.coordinates.y+1][piece.coordinates.x].piece=piece
+     grid[piece.coordinates.y+1][piece.coordinates.x+1].piece=piece
+     initialX += 2;
+   }
+   let initialX2 = 0;
+   for(let i = 0; i < 6; i++) {
+     let piece = new Piece(5);
+     piece.coordinates.x = initialX2;
+     piece.coordinates.y = 25
+     grid[piece.coordinates.y][piece.coordinates.x].piece=piece;
+     grid[piece.coordinates.y][piece.coordinates.x+1].piece=piece
+     grid[piece.coordinates.y+1][piece.coordinates.x].piece=piece
+     grid[piece.coordinates.y+1][piece.coordinates.x+1].piece=piece
+     initialX2 += 2;
+   }
+}
+} 
 
 
 })();

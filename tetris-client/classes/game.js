@@ -21,17 +21,17 @@ const Game = (function createGameClass() {
       this.nextBlock = new Piece(Math.floor(Math.random()*6));
       this.insertBlock();
       let intervalId = setInterval(() => {
-        // this.clearFullRow();
+       
         if (this.currentBlock.coordinates.y-2+this.currentBlock.height <= this.board.height && !this.detectPieceBelow(this.currentBlock)) {
           this.move(this.currentBlock, this.board.grid);
-          // this.clearFullRow();
+          this.clearFullRow(this.currentBlock);
         } else if (this.currentBlock.coordinates.y <= 2) {
           clearInterval(intervalId);
           console.log("Game Over")
           this.endGame();
         } else {
           clearInterval(intervalId);
-          // this.clearFullRow();
+          this.clearFullRow(this.currentBlock);
           this.addBlock(this.nextBlock);
         }
       }, 500)
@@ -98,9 +98,7 @@ const Game = (function createGameClass() {
         piece.updatePosition(0,1)
         this.insertBlock()
         this.board.render()
-      } else {
-        this.clearFullRow();
-      }
+      } 
     }
 
     fastFall(piece, grid) {
@@ -132,7 +130,7 @@ const Game = (function createGameClass() {
     }
 
     allowMoveDown(piece){
-      if (piece.coordinates.y+piece.height <= this.board.height) {
+      if (piece.coordinates.y+piece.height <= this.board.height + 2) {
         return true;
       } else {
         return false;
@@ -292,7 +290,7 @@ const Game = (function createGameClass() {
     }
 
     //this clears rows and updates the score accordingly
-    clearFullRow(){
+    clearFullRow(piece){
       for(let i=0; i < this.board.height+3; i++){
         let fullSquares = 0
         for (let j=0; j<this.board.width; j++){
@@ -300,7 +298,7 @@ const Game = (function createGameClass() {
             fullSquares += 1
           }
         }
-        if (fullSquares==this.board.width){
+        if (fullSquares==this.board.width && (!this.allowMoveDown(piece) || this.detectPieceBelow(piece))){
           for(let k=i; k>0; k--){
             this.board.grid[k]=this.board.grid[k-1]
             this.addRow();
@@ -322,6 +320,8 @@ const Game = (function createGameClass() {
     endGame() {
       var board = document.getElementById("board")
       $('#board').html(`<div id='game-over'><h1>Game Over</h1><h2>Final Score: ${this.score}</h2></div>`)
+      // let dataFetcher = new TetrisAdapter;
+      // console.log(dataFetcher.createGame({name: this.name, score: this.score}))
     }
 
   }
