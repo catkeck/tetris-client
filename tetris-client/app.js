@@ -1,18 +1,20 @@
 $(document).ready(function() {
-  $('#play-button').hide()
+  $('.play-button').hide()
   let user_name;
   
   $('#welcome-form').on("submit", function(e) {
     user_name = $('input').val()
     $('#welcome').hide()
-    $('#play-button').show()
+    $('.play-button').show()
     e.preventDefault()
 
   })
 
-  $('#play-button').on("click", function() {
+  $('.play-button').on("click", function() {
+    debugger
     let game = new Game(user_name);
     let dataFetcher = new TetrisAdapter;
+    $('.play-button').hide()
     dataFetcher.getGames()
 
     game.board.render();
@@ -41,7 +43,7 @@ $(document).ready(function() {
 
       e.preventDefault();
     })
-  })
+  }) 
 
 })
 

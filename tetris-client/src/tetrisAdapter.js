@@ -14,7 +14,7 @@ class TetrisAdapter {
       <li>${game.name}: ${game.score}</li>
       `
     }).join('')
-    $('#past-scores').html(`<h3>All Scores:</h3><ul>${games}</ul>`)
+    $('#past-scores').html(`<h1>All Scores:</h1><ul>${games}</ul>`)
 
   }
 

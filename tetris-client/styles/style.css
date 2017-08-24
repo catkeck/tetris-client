@@ -3,6 +3,14 @@
   display: flex;
   flex-wrap: wrap;
   max-width: 260px;
+  float: left;
+  margin-bottom: 100px;
+  margin-right: 40px;
+  margin-top: 0%;
+}
+
+.jumbotron {
+  text-align: center;
 }
 
 .row {
@@ -69,8 +77,25 @@
 
 #game-over h1, h2{
   position: relative;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%); 
   text-align: center;
   vertical-align: middle;
+}
+
+
+.form-control {
+  max-width: 400px;
+}
+
+#play-button {
+  margin-left: 30px;
+}
+
+#score {
+  margin-bottom: 20%;
+}
+
+#past-scores-container {
+  
 }
