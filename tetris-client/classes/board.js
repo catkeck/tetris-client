@@ -40,7 +40,7 @@ const Board = (function createBoardClass() {
         boardDisplay+='</div>'
       }
       for(let i=3; i < this.height+3; i++){
-        boardDisplay += "<div class='row'>"
+        boardDisplay += "<div class='cell-row'>"
         for (let j=0; j<this.width; j++){
           let cellStatus = "";
           let color = "";

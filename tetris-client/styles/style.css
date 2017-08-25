@@ -3,20 +3,23 @@
   display: flex;
   flex-wrap: wrap;
   max-width: 260px;
-  float: left;
+  //float: left;
   margin-bottom: 100px;
   margin-right: 40px;
   margin-top: 0%;
+  margin: 0 auto;
 }
 
 .jumbotron {
   text-align: center;
 }
 
-.row {
+.cell-row {
   height:20px;
   display: flex;
-  max-width: 260px;  
+  max-width: 260px;
+  margin-left: 0;
+  margin-right: 0;  
 }
 
 .row-empty {
@@ -24,21 +27,27 @@
   outline: none;
   display: flex;
   max-width: 260px;  
+  margin-left: 0;
+  margin-right: 0;  
+
 }
 
 .cell {
-    border: 1px solid #ddd;
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    margin: 1px;
-    vertical-align: top;
-  }
+  border: 1px solid #ddd;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin: 1px;
+  vertical-align: top;
+}
 
 .cell-empty{
   width:20px;
   height:20px;
   outline: none;
+  border: 1px solid #fff;
+  margin: 1px;
+  display: inline-block;
 }
 
 .cyan {
@@ -54,7 +63,7 @@
 }
 
 .yellow {
-  background: #ffff66; !important
+  background: #FFFF00; !important
 }
 
 .green {
@@ -93,9 +102,23 @@
 }
 
 #score {
+
   margin-bottom: 20%;
 }
 
 #past-scores-container {
-  
+  height: 400px;
+  overflow-y: scroll;
+}
+
+/*form stuff*/
+
+#welcome-form input, #welcome-form label, #welcome-form button{
+  margin: 0 auto;
+  text-align: center;
+  display: block;
+}
+
+.jumbotron {
+  background-color: black;
 }

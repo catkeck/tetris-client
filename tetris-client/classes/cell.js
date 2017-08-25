@@ -9,15 +9,11 @@ const Cell = (function createCellClass() {
       this.y = y;
       this.piece = piece;
       all.push(this);
-      //this.state = {piece:piece, shapeId:null}
     }
 
     static all() {
       return all;
     }
-
-
-
 
   }
 })()

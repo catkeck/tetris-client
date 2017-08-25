@@ -416,20 +416,3 @@ const Piece = (function createPieceClass() {
   }
 })()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,44 +1,48 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tetros</title>
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <title>Tetros</title>  
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
 
   </head>
   <body>
     <div class='container-fluid'>
       <div class="jumbotron">
-        <h1>Tetris</h1>
+        <img src="https://tetris.com/assets/brand/project-logo.png" style="width:280px;height:relative;"><br><br>
         <button class="btn btn-primary play-button">Press to Begin</button>
       </div>
     </div>
 
     <div id='welcome' class="container">
-        <form id='welcome-form'>
-          <div class="form-group">
+      <form id='welcome-form'>
+        <div class="form-group">
           <label>Enter Your Name:</label>
           <input type="text" class="form-control" placeholder="Name">
-          </div>
-          <input type="submit" id="name" class="btn btn-primary">
-        </form>
+        </div>
+        <input type="submit" id="name" class="btn btn-primary">
+      </form>
     </div>
-
+ 
     <div class="container">
-    <div id="board">
-    </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div id="board">
+         
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div id="score">
+            <div id="score">
+            </div>
+          </div>
 
-    
-    
-    <div id="score">
-      <div id="score">
+          <div id="past-scores-container">
+            <div id="past-scores">
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div id="past-scores-container">
-      <div id="past-scores">
-      </div>
-    </div>
     </div>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

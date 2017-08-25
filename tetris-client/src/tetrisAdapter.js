@@ -17,6 +17,7 @@ class TetrisAdapter {
     $('#past-scores').html(`<h1>All Scores:</h1><ul>${games}</ul>`)
 
   }
+  
 
   createGame(stats) {
     const gameCreateParams = {

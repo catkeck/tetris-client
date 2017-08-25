@@ -9,9 +9,11 @@ $(document).ready(function() {
     e.preventDefault()
 
   })
+  
+  $('.play-button').on("click", playGame)
 
-  $('.play-button').on("click", function() {
-    debugger
+
+  function playGame() {
     let game = new Game(user_name);
     let dataFetcher = new TetrisAdapter;
     $('.play-button').hide()
@@ -43,7 +45,7 @@ $(document).ready(function() {
 
       e.preventDefault();
     })
-  }) 
+  }
 
 })
 
