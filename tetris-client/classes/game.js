@@ -93,17 +93,18 @@ const Game = (function createGameClass() {
       } 
     }
 
-    fastFall(piece, grid) {
-      if (this.allowMoveDown(piece) && !piece.detectPieceBelow()) {
-        piece.currentShape.forEach(shapeCoordinate => {
-          const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
-          cell.piece = null
-        })
-        piece.updatePosition(0,this.detectPieceFurtherBelow(piece))
-        this.insertBlock()
-        this.board.render()
-      }
-    }
+    // fastFall(piece, grid) {
+    //   while (this.allowMoveDown(piece) && !piece.detectPieceBelow()) {
+    //     piece.currentShape.forEach(shapeCoordinate => {
+    //       const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
+    //       cell.piece = null
+    //       piece.updatePosition(0,1)
+    //       this.insertBlock()
+    //     })
+    //   }
+    //   this.board.render()
+    // }
+
 
     allowMoveLeft(piece) {
       if (piece.coordinates.x > 0) {
@@ -137,16 +138,25 @@ const Game = (function createGameClass() {
     }
 
 
-    detectPieceFurtherBelow(piece) {
-      let y = piece.coordinates.y + piece.height + 1
-      for (let i = y; i < this.board.height; i++) {
-        let classBelow = document.querySelector(`[data-x='${piece.coordinates.x}'][data-y='${i}']`).className
-        if (classBelow.includes('cell live-cell')) { 
-          return this.board.height - i + piece.height
-        } 
-      }
-      return this.board.height - y + piece.height
-    }
+    // detectPieceFurtherBelow(piece) {
+    //    while (this.allowMoveDown(piece) && !piece.detectPieceBelow()) {
+    //     piece.currentShape.forEach(shapeCoordinate => {
+    //       const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
+    //       cell.piece = null
+    //       piece.updatePosition(0,1)
+    //     })
+    //     this.insertBlock()
+    //     this.board.render()
+    //   }
+    //   // let y = piece.coordinates.y + piece.height + 1
+    //   // for (let i = y; i < this.board.height; i++) {
+    //   //   let classBelow = document.querySelector(`[data-x='${piece.coordinates.x}'][data-y='${i}']`).className
+    //   //   if (classBelow.includes('cell live-cell')) { 
+    //   //     return this.board.height - i + piece.height
+    //   //   } 
+    //   // }
+    //   // return this.board.height - y + piece.height
+    // }
 
     //this clears rows and updates the score accordingly
     clearFullRow(piece){
