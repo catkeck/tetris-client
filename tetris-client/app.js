@@ -9,7 +9,7 @@ $(document).ready(function() {
     e.preventDefault()
 
   })
-  
+
   $('.play-button').on("click", playGame)
 
 
@@ -39,7 +39,6 @@ $(document).ready(function() {
         game.removeBlock();
         game.currentBlock.rotate();
         game.insertBlock();
-        // debugger
         game.board.render();
       }
 

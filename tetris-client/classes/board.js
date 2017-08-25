@@ -53,6 +53,7 @@ const Board = (function createBoardClass() {
         boardDisplay +="</div>"
       }
       $('#board').html(boardDisplay)
+      this.game.renderLevel();
     }
 
     setColor(i,j) {

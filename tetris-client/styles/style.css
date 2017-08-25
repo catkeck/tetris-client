@@ -1,3 +1,8 @@
+body {
+  background-color: #333;
+  color: #FFF;
+}
+
 #board {
   height: auto;
   display: flex;
@@ -8,6 +13,8 @@
   margin-right: 40px;
   margin-top: 0%;
   margin: 0 auto;
+  background: #bababa;
+
 }
 
 .jumbotron {
@@ -19,7 +26,8 @@
   display: flex;
   max-width: 260px;
   margin-left: 0;
-  margin-right: 0;  
+  margin-right: 0; 
+  background: #5d5a5a; 
 }
 
 .row-empty {
@@ -33,49 +41,59 @@
 }
 
 .cell {
-  border: 1px solid #ddd;
+  border: 1px solid #383838;
   width: 20px;
   height: 20px;
   display: inline-block;
   margin: 1px;
   vertical-align: top;
+  background-color: rgba(33,33,33,1)
 }
 
 .cell-empty{
   width:20px;
   height:20px;
   outline: none;
-  border: 1px solid #fff;
+  border: 1px solid #c7c7c7;
   margin: 1px;
+
   display: inline-block;
 }
 
 .cyan {
   background: #00ffff; !important
+  border: 1px solid #00ffff; !important
+
 }
 
 .blue {
   background: #3366ff; !important
+  border: 1px solid #3366ff; !important
 }
 
 .orange {
   background: #ff9933; !important
+  border: 1px solid #ff9933; !important
 }
 
 .yellow {
   background: #FFFF00; !important
+  border: 1px solid #FFFF00; !important
 }
 
 .green {
   background: #66ff33; !important
+  border: 1px solid #66ff33; !important
 }
 
 .purple {
   background: #cc66ff; !important
+  border: 1px solid #cc66ff; !important
 }
 
 .red {
   background: #ff5050; !important
+  border: 1px solid #ff5050; !important
 }
 
 #game-over {
@@ -113,7 +131,7 @@
 
 /*form stuff*/
 
-#welcome-form input, #welcome-form label, #welcome-form button{
+#welcome-form input, #welcome-form label, #welcome-form button, .container .play-button{
   margin: 0 auto;
   text-align: center;
   display: block;
@@ -122,6 +140,5 @@
 .jumbotron {
   background-color: black;
 }
-
 
 

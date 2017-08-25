@@ -12,7 +12,7 @@
     <div class='container-fluid'>
       <div class="jumbotron">
         <img src="https://tetris.com/assets/brand/project-logo.png" style="width:280px;height:relative;"><br><br>
-        <button class="btn btn-primary play-button">Press to Begin</button>
+        
       </div>
     </div>
 
@@ -24,21 +24,27 @@
         </div>
         <input type="submit" id="name" class="btn btn-primary">
       </form>
+
     </div>
- 
+    
+    <div class="container">
+      <button class="btn btn-primary play-button">Press to Begin</button>
+    </div>
+    
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div id="board">
          
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div id="score">
-            <div id="score">
-            </div>
           </div>
-
+          <div id="level">
+          </div>
+        </div>
+        <div class="col-md'4">
           <div id="past-scores-container">
             <div id="past-scores">
             </div>
@@ -59,7 +65,7 @@
     <br>
     <br>
     <br>
-    
+
     <audio controls autoplay>
       <source src="tetris.mp3" type="audio/mpeg">
     </audio>

@@ -5,6 +5,8 @@ const Game = (function createGameClass() {
     constructor(name){
       this.name = name;
       this.score = 0;
+      this.level = 1;
+      this.rowsCleared = 0;
       this.board = new Board(13, 26, this);
 
       // this.nextBlock = new Piece(Math.floor(Math.random()*6));
@@ -22,7 +24,7 @@ const Game = (function createGameClass() {
       this.insertBlock();
       let intervalTime = 500
       let intervalId = setInterval(() => {
-        if (intervalTime > 50) {intervalTime -= 2;}
+        if (intervalTime > 50) {intervalTime -= 50;}
         if (this.currentBlock.coordinates.y-2+this.currentBlock.height <= this.board.height && !this.currentBlock.detectPieceBelow()) {
           this.currentBlock.move(this.currentBlock, this.board.grid);
           this.clearFullRow(this.currentBlock);
@@ -44,6 +46,11 @@ const Game = (function createGameClass() {
       })
     }
 
+    renderLevel() {
+      let levelHTML = `<h1> Level: ${this.level} </h1>`
+      $('#level').html(levelHTML); 
+    }
+
     insertBlock() {
       this.currentBlock.currentShape.forEach(shapeCoordinate => {
         const cell = new Cell(shapeCoordinate.y, shapeCoordinate.x, this.currentBlock)
@@ -55,8 +62,6 @@ const Game = (function createGameClass() {
 
 
     //currentBlock is the entire Piece right now so current shape is just the underlying cells- so the array of hashes
-
-
     moveRight(piece, grid) {
       if (this.allowMoveRight(piece) && !piece.detectPieceRight()) {
         piece.currentShape.forEach(shapeCoordinate => {
@@ -160,6 +165,7 @@ const Game = (function createGameClass() {
 
     //this clears rows and updates the score accordingly
     clearFullRow(piece){
+      let tetris = 0
       for(let i=0; i < this.board.height+3; i++){
         let fullSquares = 0
         for (let j=0; j<this.board.width; j++){
@@ -172,9 +178,21 @@ const Game = (function createGameClass() {
             this.board.grid[k]=this.board.grid[k-1]
             this.board.addRow();
           }
-          this.score+=10;
+          tetris += 1
+          this.rowsCleared += 1
+          if (this.rowsCleared >= 10) {
+            this.level += 1;
+            this.rowsCleared -= 10;
+          }
           this.board.render()
         }
+      }
+      if (tetris == 1 || tetris == 2){
+        this.score += 1000*tetris
+      } else if (tetris == 3) {
+        this.score += 4000
+      } else if (tetris == 4) {
+        this.score += 8000
       }
       $('#score').html(`<h1>Score: ${this.score}</h1>`)
     }
