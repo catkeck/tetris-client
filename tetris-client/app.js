@@ -32,9 +32,9 @@ $(document).ready(function() {
       } else if (e.which == 40) {
         game.moveDown(game.currentBlock, game.board.grid);
         game.board.render();
-      // } else if (e.which == 32) {
-      //   game.fastFall(game.currentBlock, game.board.grid);
-      //   game.board.render();      
+      } else if (e.which == 32) {
+        game.fastFall(game.currentBlock, game.board.grid);
+        game.board.render();      
       } else if (e.which == 38) {
         game.removeBlock();
         game.currentBlock.rotate();

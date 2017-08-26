@@ -125,7 +125,7 @@ body {
 }
 
 #past-scores-container {
-  height: 400px;
+  height: 575px;
   overflow-y: scroll;
 }
 
@@ -141,4 +141,6 @@ body {
   background-color: black;
 }
 
-
+#level-up {
+  display: none;
+}

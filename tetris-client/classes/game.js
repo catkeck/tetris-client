@@ -8,6 +8,7 @@ const Game = (function createGameClass() {
       this.level = 1;
       this.rowsCleared = 0;
       this.board = new Board(13, 26, this);
+      this.intervalTime = 550
 
       // this.nextBlock = new Piece(Math.floor(Math.random()*6));
       this.addBlock();
@@ -22,9 +23,7 @@ const Game = (function createGameClass() {
       }
       this.nextBlock = new Piece(Math.floor(Math.random()*6), this.board, this);
       this.insertBlock();
-      let intervalTime = 500
       let intervalId = setInterval(() => {
-        if (intervalTime > 50) {intervalTime -= 50;}
         if (this.currentBlock.coordinates.y-2+this.currentBlock.height <= this.board.height && !this.currentBlock.detectPieceBelow()) {
           this.currentBlock.move(this.currentBlock, this.board.grid);
           this.clearFullRow(this.currentBlock);
@@ -37,7 +36,7 @@ const Game = (function createGameClass() {
           this.clearFullRow(this.currentBlock);
           this.addBlock(this.nextBlock);
         }
-      }, intervalTime)
+      }, this.intervalTime)
     }
 
     removeBlock() {
@@ -98,17 +97,17 @@ const Game = (function createGameClass() {
       } 
     }
 
-    // fastFall(piece, grid) {
-    //   while (this.allowMoveDown(piece) && !piece.detectPieceBelow()) {
-    //     piece.currentShape.forEach(shapeCoordinate => {
-    //       const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
-    //       cell.piece = null
-    //       piece.updatePosition(0,1)
-    //       this.insertBlock()
-    //     })
-    //   }
-    //   this.board.render()
-    // }
+    fastFall(piece, grid) {
+      while (this.allowMoveDown(piece) && !piece.detectPieceBelow()) {
+        piece.currentShape.forEach(shapeCoordinate => {
+          const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
+          cell.piece = null
+        })
+        piece.updatePosition(0,1)
+        this.insertBlock()
+        this.board.render()
+      }
+    }
 
 
     allowMoveLeft(piece) {
@@ -143,26 +142,6 @@ const Game = (function createGameClass() {
     }
 
 
-    // detectPieceFurtherBelow(piece) {
-    //    while (this.allowMoveDown(piece) && !piece.detectPieceBelow()) {
-    //     piece.currentShape.forEach(shapeCoordinate => {
-    //       const cell = grid[shapeCoordinate.y][shapeCoordinate.x]
-    //       cell.piece = null
-    //       piece.updatePosition(0,1)
-    //     })
-    //     this.insertBlock()
-    //     this.board.render()
-    //   }
-    //   // let y = piece.coordinates.y + piece.height + 1
-    //   // for (let i = y; i < this.board.height; i++) {
-    //   //   let classBelow = document.querySelector(`[data-x='${piece.coordinates.x}'][data-y='${i}']`).className
-    //   //   if (classBelow.includes('cell live-cell')) { 
-    //   //     return this.board.height - i + piece.height
-    //   //   } 
-    //   // }
-    //   // return this.board.height - y + piece.height
-    // }
-
     //this clears rows and updates the score accordingly
     clearFullRow(piece){
       let tetris = 0
@@ -182,7 +161,12 @@ const Game = (function createGameClass() {
           this.rowsCleared += 1
           if (this.rowsCleared >= 10) {
             this.level += 1;
+            if (this.intervalTime > 100) {this.intervalTime -= 100;}
             this.rowsCleared -= 10;
+            // $("#level-up").show();
+            // setTimeout(function() {
+            //   $("#level-up").hide();
+            // }, 1000);
           }
           this.board.render()
         }
