@@ -144,3 +144,16 @@ body {
 #level-up {
   display: none;
 }
+
+#show-board {
+  width: 120;
+}
+
+#show-cell-row {
+  height:20px;
+  display: flex;
+  max-width: 120px;
+  margin-left: 0;
+  margin-right: 0; 
+  background: #5d5a5a; 
+}

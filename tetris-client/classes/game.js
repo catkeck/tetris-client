@@ -3,14 +3,13 @@ const Game = (function createGameClass() {
   return class Game {
 
     constructor(name){
+      this.showBoard = new showBoard(null, this);
       this.name = name;
       this.score = 0;
       this.level = 1;
       this.rowsCleared = 0;
       this.board = new Board(13, 26, this);
       this.intervalTime = 550
-
-      // this.nextBlock = new Piece(Math.floor(Math.random()*6));
       this.addBlock();
     }
 
@@ -22,6 +21,8 @@ const Game = (function createGameClass() {
         this.currentBlock = nextBlock
       }
       this.nextBlock = new Piece(Math.floor(Math.random()*6), this.board, this);
+      this.showBoard.piece = this.nextBlock;
+      this.showBoard.refresh();
       this.insertBlock();
       let intervalId = setInterval(() => {
         if (this.currentBlock.coordinates.y-2+this.currentBlock.height <= this.board.height && !this.currentBlock.detectPieceBelow()) {
@@ -172,11 +173,11 @@ const Game = (function createGameClass() {
         }
       }
       if (tetris == 1 || tetris == 2){
-        this.score += 1000*tetris
+        this.score += 1000*tetris*this.level
       } else if (tetris == 3) {
-        this.score += 4000
+        this.score += 4000*this.level
       } else if (tetris == 4) {
-        this.score += 8000
+        this.score += 8000*this.level
       }
       $('#score').html(`<h1>Score: ${this.score}</h1>`)
     }
